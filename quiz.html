@@ -185,6 +185,43 @@
       background:rgba(59,130,246,.15);
     }
 
+    /* Estilos para respostas corretas e incorretas */
+    .option-label.correct,
+    .answer.correct,
+    label.correct{
+      background-color: rgba(16,185,129,.2) !important;
+      border-color: var(--success) !important;
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .option-label.incorrect,
+    .answer.incorrect,
+    label.incorrect{
+      background-color: rgba(239,68,68,.2) !important;
+      border-color: var(--danger) !important;
+      color: var(--danger);
+      font-weight: 600;
+    }
+
+    .option-label.correct input[type="radio"]:checked,
+    .option-label.correct input[type="checkbox"]:checked,
+    .answer.correct input[type="radio"]:checked,
+    .answer.correct input[type="checkbox"]:checked,
+    label.correct input[type="radio"]:checked,
+    label.correct input[type="checkbox"]:checked{
+      accent-color: var(--success);
+    }
+
+    .option-label.incorrect input[type="radio"]:checked,
+    .option-label.incorrect input[type="checkbox"]:checked,
+    .answer.incorrect input[type="radio"]:checked,
+    .answer.incorrect input[type="checkbox"]:checked,
+    label.incorrect input[type="radio"]:checked,
+    label.incorrect input[type="checkbox"]:checked{
+      accent-color: var(--danger);
+    }
+
     .sr-only{
       position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;
     }
