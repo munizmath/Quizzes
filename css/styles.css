@@ -665,3 +665,265 @@ button:disabled:hover,
     outline-offset: 2px;
 }
 
+/* Histórico de Tentativas */
+.history-list {
+    margin: 20px 0;
+    text-align: left;
+}
+
+.history-item {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.history-date {
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+.history-status {
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.status-approved {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-failed {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.history-details p {
+    margin: 5px 0;
+    color: #333;
+}
+
+/* Estatísticas */
+.stats-summary {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.stat-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 15px;
+    text-align: center;
+}
+
+.stat-card h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.stat-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.stat-bar-fill {
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.stat-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+.stat-percentage {
+    font-weight: bold;
+}
+
+.stat-card-large {
+    background-color: #f8f9fa;
+    border: 2px solid #007BFF;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    margin: 10px;
+}
+
+.stat-card-large h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.stat-number {
+    font-size: 2em;
+    font-weight: bold;
+    color: #007BFF;
+    margin: 10px 0;
+}
+
+.stat-number.positive {
+    color: #28a745;
+}
+
+.stat-number.negative {
+    color: #dc3545;
+}
+
+/* Modo de Revisão */
+.review-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.review-question {
+    background-color: #f8f9fa;
+    border: 2px solid #dee2e6;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.review-question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.question-number {
+    font-weight: bold;
+    color: #007BFF;
+}
+
+.question-status {
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.question-status.correct {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.question-status.incorrect {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.attempts-info {
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+.review-options {
+    margin: 15px 0;
+}
+
+.review-option {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid #dee2e6;
+}
+
+.review-option.correct-selected {
+    background-color: #d4edda;
+    border-color: #28a745;
+}
+
+.review-option.correct-not-selected {
+    background-color: #fff3cd;
+    border-color: #ffc107;
+}
+
+.review-option.incorrect-selected {
+    background-color: #f8d7da;
+    border-color: #dc3545;
+}
+
+.review-explanation {
+    background-color: #e7f3ff;
+    border-left: 4px solid #007BFF;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 5px;
+}
+
+.review-answer-info {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #dee2e6;
+}
+
+.review-answer-info p {
+    margin: 5px 0;
+    color: #333;
+}
+
+.correct-badge {
+    display: inline-block;
+    background-color: #28a745;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+.incorrect-badge {
+    display: inline-block;
+    background-color: #dc3545;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+/* Seção de revisão */
+.review-section {
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* Result Actions */
+#result-actions {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#result-actions button {
+    width: 100%;
+}
+

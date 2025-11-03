@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZ TECH - Histórico de Tentativas</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <main class="home-container" role="main">
+        <div class="quiz-selection" role="region" aria-labelledby="history-heading">
+            <h1 id="history-heading">QUIZ TECH - Histórico</h1>
+            
+            <div id="user-section" class="user-info">
+                <p><strong>Usuário:</strong> <span id="history-user-name"></span></p>
+            </div>
+            
+            <div id="stats-summary" class="stats-summary">
+                <h2>Resumo de Estatísticas</h2>
+                <div id="stats-content"></div>
+            </div>
+            
+            <div id="history-list" class="history-list">
+                <h2>Histórico de Tentativas</h2>
+                <div id="history-items"></div>
+            </div>
+            
+            <div id="review-section" class="review-section">
+                <h2>Modo de Revisão</h2>
+                <button id="start-review-button" class="quiz-option">
+                    Revisar Questões Erradas
+                </button>
+            </div>
+            
+            <button id="export-stats-button" class="quiz-option secondary">
+                Exportar Estatísticas para PDF
+            </button>
+            
+            <button id="back-button" class="quiz-option secondary">
+                Voltar
+            </button>
+        </div>
+    </main>
+    
+    <script src="js/history.js"></script>
+    <script src="js/stats.js"></script>
+    <script src="js/pdf-export.js"></script>
+    <script src="js/review-mode.js"></script>
+    <script src="js/history-page.js"></script>
+</body>
+</html>
+

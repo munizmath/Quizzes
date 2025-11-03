@@ -16,6 +16,38 @@ Sistema interativo de quiz para preparação de certificações técnicas, com s
 
 ## 🚀 Como Usar
 
+### Instalação
+
+1. Clone o repositório:
+```bash
+git clone https://github.com/munizmath/Quizzes.git
+cd Quizzes
+```
+
+2. Instale as dependências (opcional, para testes):
+```bash
+npm install
+```
+
+3. Para executar testes E2E:
+```bash
+npm run test:e2e
+# ou para modo interativo:
+npm run test:e2e:open
+```
+
+4. Para executar testes de acessibilidade:
+```bash
+npm run test:accessibility
+```
+
+5. Para servir localmente (para desenvolvimento):
+```bash
+npm run serve
+```
+
+### Uso Básico
+
 ### Iniciando o Quiz
 
 1. Abra o arquivo `index.html` no seu navegador
@@ -176,17 +208,49 @@ Cada arquivo JSON deve seguir este formato:
 - ✅ Prevenção de XSS com escapeHtml()
 - ✅ Validação de entrada do usuário
 
-## 🚧 Melhorias Futuras Sugeridas
+## ✅ Melhorias Implementadas
 
-- [ ] Sistema de histórico de tentativas
-- [ ] Exportação de resultados para PDF
-- [ ] Modo de revisão de questões
-- [ ] Estatísticas detalhadas por tópico
-- [ ] Sistema de login/usuários
-- [ ] Banco de dados para armazenar resultados
-- [ ] PWA (Progressive Web App) para instalação
-- [ ] Testes E2E com Cypress ou Playwright
-- [ ] Testes de acessibilidade automatizados (axe-core)
+- ✅ Sistema de histórico de tentativas (IndexedDB + localStorage fallback)
+- ✅ Exportação de resultados para PDF (jsPDF)
+- ✅ Modo de revisão de questões (apenas questões erradas)
+- ✅ Estatísticas detalhadas por tópico
+- ✅ Sistema básico de login/usuários (IndexedDB + localStorage fallback)
+- ✅ Banco de dados para armazenar resultados (IndexedDB)
+- ✅ PWA (Progressive Web App) para instalação (manifest.json + service worker)
+- ✅ Testes E2E com Cypress
+- ✅ Testes de acessibilidade automatizados (axe-core)
+
+### 📊 Novas Funcionalidades
+
+#### 1. Histórico de Tentativas
+- Acesse `history.html` para ver seu histórico completo
+- Visualize todas as tentativas anteriores
+- Veja estatísticas de desempenho ao longo do tempo
+
+#### 2. Exportação para PDF
+- Exporte resultados para PDF após completar um quiz
+- Gere relatórios detalhados com todas as questões
+- Compartilhe resultados facilmente
+
+#### 3. Modo de Revisão
+- Revise apenas questões que você errou
+- Foque em áreas que precisam de melhoria
+- Acesse através do histórico
+
+#### 4. Estatísticas por Tópico
+- Visualize desempenho por tópico (EC2, S3, RDS, etc.)
+- Identifique áreas fracas e fortes
+- Receba recomendações de estudo
+
+#### 5. PWA (Progressive Web App)
+- Instale o quiz como aplicativo no seu dispositivo
+- Funcione offline após primeira carga
+- Experiência nativa de app
+
+#### 6. Testes Automatizados
+- Testes E2E com Cypress (`npm run test:e2e`)
+- Testes de acessibilidade com axe-core (`npm run test:accessibility`)
+- Garantia de qualidade e acessibilidade
 
 ## 📄 Licença
 

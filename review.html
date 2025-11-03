@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZ TECH - Modo de Revisão</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <main id="quiz-box" role="main" aria-label="Modo de revisão de questões">
+        <div id="quiz-container" role="region" aria-label="Questões para revisão">
+            <!-- Conteúdo será gerado dinamicamente -->
+        </div>
+    </main>
+    
+    <nav id="sidebar" role="complementary" aria-label="Controles de revisão">
+        <h1>Modo de Revisão</h1>
+        <p id="review-info">Carregando questões...</p>
+        <button id="back-review-button" class="quiz-option">
+            Voltar ao Histórico
+        </button>
+        <button id="export-review-button" class="quiz-option secondary">
+            Exportar para PDF
+        </button>
+    </nav>
+    
+    <script src="js/review-mode.js"></script>
+    <script src="js/pdf-export.js"></script>
+    <script src="js/review-page.js"></script>
+</body>
+</html>
+

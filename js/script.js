@@ -118,6 +118,13 @@ const QuizApp = {
             });
         }
         
+        const historyButton = document.getElementById('history-button');
+        if (historyButton) {
+            historyButton.addEventListener('click', () => {
+                window.location.href = 'history.html';
+            });
+        }
+        
         // Expor funções globais para compatibilidade
         window.selectPart = (partNumber) => this.selectPart(partNumber);
         window.resetParts = () => this.resetParts();
@@ -572,7 +579,7 @@ const QuizApp = {
     },
     
     // Enviar respostas
-    submitAnswers() {
+    async submitAnswers() {
         if (this.currentQuestions.length === 0) {
             this.showModal('Atenção', 'Selecione grupos para começar o quiz.');
             return;
@@ -581,13 +588,117 @@ const QuizApp = {
         const totalQuestions = this.currentQuestions.length;
         const percentage = Math.round((this.correctCount / totalQuestions) * 100);
         
+        // Coletar dados das questões respondidas
+        const questionsData = this.collectQuestionsData();
+        
+        // Salvar no histórico
+        if (typeof HistoryManager !== 'undefined') {
+            const timeSpent = (30 * 60) - this.remainingTime;
+            await HistoryManager.saveAttempt({
+                userId: this.userEmail,
+                userName: this.userName,
+                userEmail: this.userEmail,
+                quizType: this.quizType,
+                selectedGroups: this.selectedParts,
+                correctCount: this.correctCount,
+                incorrectCount: this.incorrectCount,
+                totalQuestions: totalQuestions,
+                percentage: percentage,
+                timeSpent: timeSpent,
+                questions: questionsData
+            });
+        }
+        
         let message = `Resultado: ${this.correctCount} certas e ${this.incorrectCount} erradas.\n`;
         message += `Percentual: ${percentage}%`;
         
         if (percentage >= this.passingPercentage) {
-            this.showModal('Parabéns!', `Você atingiu ${percentage}% de acerto! ${message}`);
+            this.showModal('Parabéns!', `Você atingiu ${percentage}% de acerto! ${message}`, () => {
+                // Mostrar botões de exportação e histórico
+                this.showResultActions();
+            });
         } else {
-            this.showModal('Continue Estudando', `Você precisa de ${this.passingPercentage}% para passar. ${message}`);
+            this.showModal('Continue Estudando', `Você precisa de ${this.passingPercentage}% para passar. ${message}`, () => {
+                this.showResultActions();
+            });
+        }
+    },
+    
+    // Coletar dados das questões respondidas
+    collectQuestionsData() {
+        const questionsData = [];
+        
+        this.currentQuestions.forEach((q, index) => {
+            const questionElement = this.quizContainer.querySelector(`.question:nth-child(${index + 1})`);
+            if (!questionElement) return;
+            
+            const inputs = questionElement.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked');
+            const userAnswers = Array.from(inputs).map(input => input.value);
+            const correctAnswer = Array.isArray(q.correctAnswer) ? q.correctAnswer : [q.correctAnswer];
+            const isCorrect = correctAnswer.every(ans => userAnswers.includes(ans)) && 
+                            userAnswers.length === correctAnswer.length;
+            
+            questionsData.push({
+                questionId: q.id || index,
+                question: q.question,
+                options: q.options,
+                correctAnswer: q.correctAnswer,
+                userAnswer: userAnswers.length > 0 ? (userAnswers.length === 1 ? userAnswers[0] : userAnswers) : null,
+                isCorrect: isCorrect,
+                explanation: q.explanation || ''
+            });
+        });
+        
+        return questionsData;
+    },
+    
+    // Mostrar ações após resultado
+    showResultActions() {
+        const actionButtons = `
+            <div id="result-actions" style="margin-top: 20px;">
+                <button id="view-history-button" class="quiz-option secondary">
+                    Ver Histórico
+                </button>
+                <button id="export-pdf-button" class="quiz-option secondary">
+                    Exportar para PDF
+                </button>
+                <button id="view-stats-button" class="quiz-option secondary">
+                    Ver Estatísticas
+                </button>
+            </div>
+        `;
+        
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar && !document.getElementById('result-actions')) {
+            sidebar.insertAdjacentHTML('beforeend', actionButtons);
+            
+            document.getElementById('view-history-button')?.addEventListener('click', () => {
+                window.location.href = 'history.html';
+            });
+            
+            document.getElementById('export-pdf-button')?.addEventListener('click', async () => {
+                const questionsData = this.collectQuestionsData();
+                const totalQuestions = this.currentQuestions.length;
+                const percentage = Math.round((this.correctCount / totalQuestions) * 100);
+                
+                if (typeof PDFExporter !== 'undefined') {
+                    await PDFExporter.generatePDF({
+                        userName: this.userName,
+                        userEmail: this.userEmail,
+                        quizType: this.quizType,
+                        correctCount: this.correctCount,
+                        incorrectCount: this.incorrectCount,
+                        totalQuestions: totalQuestions,
+                        percentage: percentage,
+                        date: new Date().toISOString(),
+                        questions: questionsData
+                    });
+                }
+            });
+            
+            document.getElementById('view-stats-button')?.addEventListener('click', () => {
+                window.location.href = 'history.html#stats';
+            });
         }
     },
     
