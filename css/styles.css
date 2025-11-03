@@ -150,6 +150,7 @@ label.partially-correct {
     text-align: center;
     transition: background-color 0.3s ease, border-color 0.3s ease;
     min-height: 44px; /* Tamanho mínimo para acessibilidade (WCAG) */
+    flex-shrink: 0;
 }
 
 .group-button:hover {
