@@ -131,13 +131,26 @@
       max-width:900px; margin:0 auto;
     }
 
-    .question-card{
+    .question-card,
+    .question{
       background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
       border:1px solid var(--border);
       border-radius:calc(var(--radius) + 2px);
       padding:24px;
       margin-bottom:24px;
       box-shadow: var(--shadow-lg);
+    }
+
+    .question h3{
+      color:var(--text);
+      font-size:18px;
+      font-weight:600;
+      margin-bottom:16px;
+      line-height:1.6;
+    }
+
+    .answers{
+      margin-top:12px;
     }
 
     .question-number{
