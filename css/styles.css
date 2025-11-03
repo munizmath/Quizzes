@@ -477,6 +477,9 @@ tr:nth-child(even) {
     justify-content: center;
     min-height: 100vh;
     padding: 20px;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .quiz-selection {
@@ -487,6 +490,8 @@ tr:nth-child(even) {
     max-width: 600px;
     width: 100%;
     text-align: center;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .quiz-selection h1 {
@@ -572,12 +577,26 @@ tr:nth-child(even) {
     padding: 15px;
     border-radius: 5px;
     margin: 20px 0;
-    text-align: left;
+    text-align: center;
 }
 
 .selected-groups-info p {
     margin: 5px 0;
     color: #333;
+}
+
+/* Seleção de grupos - centralização */
+#groups-selection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+    align-items: center;
+}
+
+#groups-selection .group-button {
+    margin: 5px;
 }
 
 /* Mensagem de erro */
