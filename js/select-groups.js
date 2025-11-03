@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (displayEmail) displayEmail.textContent = userEmail;
     if (displayQuizType) {
         displayQuizType.textContent = quizType === 'aws' 
-            ? 'Quiz AWS - Certificações Amazon Web Services'
+            ? 'Quiz AWS - AWS Cloud Practitioner'
             : 'Quiz COBIT - Governança e Gerenciamento de TI';
     }
     

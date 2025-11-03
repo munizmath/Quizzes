@@ -62,7 +62,7 @@ npm run serve
 1. Abra o arquivo `index.html` no seu navegador
 2. Preencha seu nome e e-mail
 3. Selecione o tipo de quiz desejado:
-   - **Quiz AWS**: Para certificações Amazon Web Services
+   - **Quiz AWS**: Para AWS Cloud Practitioner
    - **Quiz COBIT**: Para questões de Governança e Gerenciamento de TI
 4. Clique em "Iniciar Prova"
 
