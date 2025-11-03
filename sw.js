@@ -26,7 +26,9 @@ const urlsToCache = [
   BASE_PATH + '/js/auth.js',
   BASE_PATH + '/js/pwa-install.js',
   BASE_PATH + '/data/Questions_AWS.json',
-  BASE_PATH + '/data/Questions_COBIT.json'
+  BASE_PATH + '/data/Questions_COBIT.json',
+  BASE_PATH + '/data/Questions_ITIL4.json',
+  BASE_PATH + '/data/Questions_AZ900.json'
 ];
 
 // Instalação do Service Worker

@@ -73,6 +73,20 @@
       "description": "Iniciar quiz COBIT",
       "url": "./index.html?quiz=cobit",
       "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Quiz ITIL 4",
+      "short_name": "ITIL4",
+      "description": "Iniciar quiz ITIL 4 Foundations",
+      "url": "./index.html?quiz=itil4",
+      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Quiz AZ-900",
+      "short_name": "AZ900",
+      "description": "Iniciar quiz AZ-900 Azure Fundamentals",
+      "url": "./index.html?quiz=az900",
+      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
     }
   ]
 }

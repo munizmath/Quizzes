@@ -64,6 +64,8 @@ npm run serve
 3. Selecione o tipo de quiz desejado:
    - **Quiz AWS**: Para AWS Cloud Practitioner
    - **Quiz COBIT**: Para questões de Governança e Gerenciamento de TI
+   - **Quiz ITIL 4**: Para ITIL 4 Foundations
+   - **Quiz AZ-900**: Para Microsoft Azure Fundamentals
 4. Clique em "Iniciar Prova"
 
 #### Selecionando Grupos
@@ -129,7 +131,9 @@ Quizzes/
 │   └── pwa-install.js            # Instalação PWA
 ├── data/
 │   ├── Questions_AWS.json       # Questões AWS
-│   └── Questions_COBIT.json     # Questões COBIT
+│   ├── Questions_COBIT.json    # Questões COBIT
+│   ├── Questions_ITIL4.json    # Questões ITIL 4 Foundations
+│   └── Questions_AZ900.json    # Questões AZ-900 Azure Fundamentals
 ├── cypress/
 │   ├── e2e/
 │   │   └── quiz.cy.js            # Testes E2E

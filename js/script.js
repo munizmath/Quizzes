@@ -71,9 +71,25 @@ const QuizApp = {
         if (quizUserName) quizUserName.textContent = this.userName;
         
         if (quizTypeDisplay) {
-            quizTypeDisplay.textContent = this.quizType === 'aws' 
-                ? 'Quiz AWS'
-                : 'Quiz COBIT';
+            let displayText;
+            switch(this.quizType) {
+                case 'aws':
+                    displayText = 'Quiz AWS';
+                    break;
+                case 'cobit':
+                    displayText = 'Quiz COBIT';
+                    break;
+                case 'itil4':
+                    displayText = 'Quiz ITIL 4';
+                    break;
+                case 'az900':
+                    displayText = 'Quiz AZ-900';
+                    break;
+                default:
+                    displayText = 'Quiz';
+                    break;
+            }
+            quizTypeDisplay.textContent = displayText;
         }
         
         if (quizGroupsDisplay) {
@@ -189,9 +205,22 @@ const QuizApp = {
     // Carregar dados do quiz
     async loadQuizData() {
         try {
-            const fileName = this.quizType === 'cobit' 
-                ? 'data/Questions_COBIT.json' 
-                : 'data/Questions_AWS.json';
+            let fileName;
+            switch(this.quizType) {
+                case 'cobit':
+                    fileName = 'data/Questions_COBIT.json';
+                    break;
+                case 'itil4':
+                    fileName = 'data/Questions_ITIL4.json';
+                    break;
+                case 'az900':
+                    fileName = 'data/Questions_AZ900.json';
+                    break;
+                case 'aws':
+                default:
+                    fileName = 'data/Questions_AWS.json';
+                    break;
+            }
             
             this.showLoading();
             

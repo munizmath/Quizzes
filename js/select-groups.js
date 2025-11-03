@@ -24,9 +24,25 @@ document.addEventListener('DOMContentLoaded', function() {
     if (displayName) displayName.textContent = userName;
     if (displayEmail) displayEmail.textContent = userEmail;
     if (displayQuizType) {
-        displayQuizType.textContent = quizType === 'aws' 
-            ? 'Quiz AWS - AWS Cloud Practitioner'
-            : 'Quiz COBIT - Governança e Gerenciamento de TI';
+        let displayText;
+        switch(quizType) {
+            case 'aws':
+                displayText = 'Quiz AWS - AWS Cloud Practitioner';
+                break;
+            case 'cobit':
+                displayText = 'Quiz COBIT - Governança e Gerenciamento de TI';
+                break;
+            case 'itil4':
+                displayText = 'Quiz ITIL 4 - ITIL 4 Foundations';
+                break;
+            case 'az900':
+                displayText = 'Quiz AZ-900 - Microsoft Azure Fundamentals';
+                break;
+            default:
+                displayText = 'Quiz';
+                break;
+        }
+        displayQuizType.textContent = displayText;
     }
     
     // Estado dos grupos selecionados
