@@ -158,29 +158,48 @@
       margin-bottom:12px;
     }
 
-    .option-label{
+    .option-label,
+    .answer,
+    label.answer{
       display:flex; align-items:center; gap:12px;
       padding:14px 16px; border-radius:10px;
       border:2px solid var(--border);
       background:rgba(8,12,24,.4);
       cursor:pointer; transition:.2s ease;
+      color:var(--text);
+      margin-bottom:8px;
     }
 
-    .option-label:hover{
+    .option-label:hover,
+    .answer:hover,
+    label.answer:hover{
       border-color:var(--primary);
       background:rgba(59,130,246,.1);
     }
 
-    .option-label input[type="radio"]{
+    .option-label input[type="radio"],
+    .option-label input[type="checkbox"],
+    .answer input[type="radio"],
+    .answer input[type="checkbox"],
+    label.answer input[type="radio"],
+    label.answer input[type="checkbox"]{
       width:20px; height:20px; cursor:pointer;
       accent-color:var(--primary);
+      flex-shrink:0;
     }
 
-    .option-label input[type="radio"]:checked + span{
+    .option-label input[type="radio"]:checked + span,
+    .answer input[type="radio"]:checked,
+    label.answer input[type="radio"]:checked{
       color:var(--primary); font-weight:600;
     }
 
-    .option-label:has(input[type="radio"]:checked){
+    .option-label:has(input[type="radio"]:checked),
+    .option-label:has(input[type="checkbox"]:checked),
+    .answer:has(input[type="radio"]:checked),
+    .answer:has(input[type="checkbox"]:checked),
+    label.answer:has(input[type="radio"]:checked),
+    label.answer:has(input[type="checkbox"]:checked){
       border-color:var(--primary);
       background:rgba(59,130,246,.15);
     }
