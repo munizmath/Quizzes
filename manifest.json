@@ -2,7 +2,7 @@
   "name": "QUIZ TECH",
   "short_name": "QuizTech",
   "description": "Sistema interativo de quiz para preparação de certificações técnicas",
-  "start_url": "/Quizzes/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#312e2e",
   "theme_color": "#007BFF",
@@ -64,14 +64,14 @@
       "name": "Quiz AWS",
       "short_name": "AWS",
       "description": "Iniciar quiz AWS",
-      "url": "/Quizzes/index.html?quiz=aws",
+      "url": "./index.html?quiz=aws",
       "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
     },
     {
       "name": "Quiz COBIT",
       "short_name": "COBIT",
       "description": "Iniciar quiz COBIT",
-      "url": "/Quizzes/index.html?quiz=cobit",
+      "url": "./index.html?quiz=cobit",
       "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
     }
   ]

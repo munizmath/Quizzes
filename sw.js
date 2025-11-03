@@ -4,23 +4,29 @@
  */
 
 const CACHE_NAME = 'quiz-tech-v1';
+const BASE_PATH = self.location.pathname.replace(/\/sw\.js$/, '');
 const urlsToCache = [
-  '/Quizzes/',
-  '/Quizzes/index.html',
-  '/Quizzes/select-groups.html',
-  '/Quizzes/quiz.html',
-  '/Quizzes/css/styles.css',
-  '/Quizzes/js/script.js',
-  '/Quizzes/js/user-form.js',
-  '/Quizzes/js/select-groups.js',
-  '/Quizzes/js/access-control.js',
-  '/Quizzes/js/history.js',
-  '/Quizzes/js/pdf-export.js',
-  '/Quizzes/js/review-mode.js',
-  '/Quizzes/js/stats.js',
-  '/Quizzes/js/auth.js',
-  '/Quizzes/data/Questions_AWS.json',
-  '/Quizzes/data/Questions_COBIT.json'
+  BASE_PATH + '/',
+  BASE_PATH + '/index.html',
+  BASE_PATH + '/select-groups.html',
+  BASE_PATH + '/quiz.html',
+  BASE_PATH + '/history.html',
+  BASE_PATH + '/review.html',
+  BASE_PATH + '/css/styles.css',
+  BASE_PATH + '/js/script.js',
+  BASE_PATH + '/js/user-form.js',
+  BASE_PATH + '/js/select-groups.js',
+  BASE_PATH + '/js/access-control.js',
+  BASE_PATH + '/js/history.js',
+  BASE_PATH + '/js/history-page.js',
+  BASE_PATH + '/js/pdf-export.js',
+  BASE_PATH + '/js/review-mode.js',
+  BASE_PATH + '/js/review-page.js',
+  BASE_PATH + '/js/stats.js',
+  BASE_PATH + '/js/auth.js',
+  BASE_PATH + '/js/pwa-install.js',
+  BASE_PATH + '/data/Questions_AWS.json',
+  BASE_PATH + '/data/Questions_COBIT.json'
 ];
 
 // Instalação do Service Worker
@@ -86,7 +92,7 @@ self.addEventListener('fetch', (event) => {
         }).catch(() => {
           // Se offline e não houver cache, retornar página offline
           if (event.request.destination === 'document') {
-            return caches.match('/Quizzes/index.html');
+            return caches.match(BASE_PATH + '/index.html');
           }
         });
       })

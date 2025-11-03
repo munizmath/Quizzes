@@ -76,7 +76,10 @@ const PWAInstall = {
     async registerServiceWorker() {
         if ('serviceWorker' in navigator) {
             try {
-                const registration = await navigator.serviceWorker.register('/Quizzes/sw.js');
+                // Detectar caminho base automaticamente
+                const basePath = window.location.pathname.replace(/\/[^\/]*\.html?$/, '') || '/';
+                const swPath = basePath + (basePath.endsWith('/') ? '' : '/') + 'sw.js';
+                const registration = await navigator.serviceWorker.register(swPath);
                 console.log('Service Worker registrado:', registration);
                 
                 // Verificar atualizações
