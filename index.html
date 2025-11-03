@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,7 @@
             <h1 id="main-heading">QUIZ TECH</h1>
             <p>Preencha seus dados e selecione o tipo de prova:</p>
             
-            <form id="user-form" role="form" aria-label="Formulário de cadastro para iniciar o quiz">
+            <form id="user-form" role="form" aria-label="Formulário de cadastro para iniciar o quiz" class="user-form">
                 <div class="form-group">
                     <label for="user-name">Nome Completo:</label>
                     <input type="text" id="user-name" name="name" required autocomplete="name" aria-required="true" aria-label="Digite seu nome completo" placeholder="Digite seu nome completo">
@@ -27,8 +27,10 @@
                     <label for="quiz-type">Tipo de Prova:</label>
                     <select id="quiz-type" name="quizType" required aria-required="true" aria-label="Selecione o tipo de prova">
                         <option value="">Selecione uma opção</option>
-                        <option value="aws">Quiz AWS - Certificações Amazon Web Services</option>
+                        <option value="aws">Quiz AWS - AWS Cloud Practitioner</option>
                         <option value="cobit">Quiz COBIT - Governança e Gerenciamento de TI</option>
+                        <option value="itil4">Quiz ITIL 4 - ITIL 4 Foundations</option>
+                        <option value="az900">Quiz AZ-900 - Microsoft Azure Fundamentals</option>
                     </select>
                 </div>
                 
