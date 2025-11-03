@@ -29,6 +29,8 @@ const QuizApp = {
     isPaused: false,
     quizStarted: false,
     quizType: null, // 'aws' ou 'cobit'
+    initialTime: 30 * 60, // Tempo inicial em segundos (30 minutos)
+    timeSpent: 0, // Tempo gasto em segundos
     
     // Inicialização
     init() {
@@ -483,8 +485,7 @@ const QuizApp = {
         }
         
         if (this.remainingTime <= 0) {
-            clearInterval(this.timerInterval);
-            this.timerInterval = null;
+            this.stopTimer();
             this.showModal('Tempo Esgotado', 'O tempo acabou! O quiz será finalizado.');
             this.finishQuiz();
         } else {
@@ -541,6 +542,8 @@ const QuizApp = {
         // Iniciar timer se ainda não estiver rodando
         if (!this.timerInterval && this.selectedParts.length > 0) {
             this.remainingTime = 30 * 60;
+            this.initialTime = 30 * 60; // Resetar tempo inicial
+            this.timeSpent = 0; // Resetar tempo gasto
             this.timerInterval = setInterval(() => this.updateTimer(), 1000);
         }
     },
@@ -557,6 +560,14 @@ const QuizApp = {
         
         this.passingPercentage = 80;
         this.remainingTime = 0;
+        this.initialTime = 30 * 60;
+        this.timeSpent = 0;
+        
+        // Ocultar tempo gasto
+        const timeSpentElement = document.getElementById('quiz-time-spent');
+        if (timeSpentElement) {
+            timeSpentElement.style.display = 'none';
+        }
         
         clearInterval(this.timerInterval);
         this.timerInterval = null;
@@ -578,12 +589,51 @@ const QuizApp = {
         this.updateStatusMessage();
     },
     
+    // Parar timer
+    stopTimer() {
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+        // Calcular tempo gasto
+        this.timeSpent = this.initialTime - this.remainingTime;
+        // Exibir tempo gasto
+        this.displayTimeSpent();
+    },
+    
+    // Formatar tempo gasto
+    formatTimeSpent(seconds) {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+        
+        if (hours > 0) {
+            return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        } else {
+            return `${minutes}:${secs.toString().padStart(2, '0')}`;
+        }
+    },
+    
+    // Exibir tempo gasto
+    displayTimeSpent() {
+        const timeSpentElement = document.getElementById('quiz-time-spent');
+        const timeSpentDisplay = document.getElementById('time-spent-display');
+        
+        if (timeSpentElement && timeSpentDisplay && this.timeSpent > 0) {
+            timeSpentDisplay.textContent = this.formatTimeSpent(this.timeSpent);
+            timeSpentElement.style.display = 'block';
+        }
+    },
+    
     // Enviar respostas
     async submitAnswers() {
         if (this.currentQuestions.length === 0) {
             this.showModal('Atenção', 'Selecione grupos para começar o quiz.');
             return;
         }
+        
+        // Parar timer
+        this.stopTimer();
         
         const totalQuestions = this.currentQuestions.length;
         const percentage = Math.round((this.correctCount / totalQuestions) * 100);
@@ -593,7 +643,6 @@ const QuizApp = {
         
         // Salvar no histórico
         if (typeof HistoryManager !== 'undefined') {
-            const timeSpent = (30 * 60) - this.remainingTime;
             await HistoryManager.saveAttempt({
                 userId: this.userEmail,
                 userName: this.userName,
@@ -604,7 +653,7 @@ const QuizApp = {
                 incorrectCount: this.incorrectCount,
                 totalQuestions: totalQuestions,
                 percentage: percentage,
-                timeSpent: timeSpent,
+                timeSpent: this.timeSpent,
                 questions: questionsData
             });
         }
@@ -704,8 +753,8 @@ const QuizApp = {
     
     // Finalizar quiz
     finishQuiz() {
-        clearInterval(this.timerInterval);
-        this.timerInterval = null;
+        // Parar timer
+        this.stopTimer();
         this.submitAnswers();
     },
     
