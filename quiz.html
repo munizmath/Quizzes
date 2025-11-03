@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZ TECH - Quiz em andamento</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Skip link para navegação por teclado -->
+    <a href="#quiz-container" class="skip-link">Pular para conteúdo principal</a>
+    
+    <!-- Região ao vivo para atualizações de status -->
+    <div id="status-region" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+    
+    <nav id="sidebar" role="complementary" aria-label="Painel de controle do quiz">
+        <h1>QUIZ TECH</h1>
+        <section aria-labelledby="timer-label">
+            <h2 id="timer-label">Tempo total:</h2>
+            <div id="timer" role="timer" aria-live="polite" aria-atomic="true">00:00</div>
+        </section>
+        
+        <div role="group" aria-label="Controles do timer">
+            <button 
+                id="pause-button" 
+                type="button"
+                aria-label="Pausar o timer do quiz"
+                aria-pressed="false">
+                Pausar
+            </button>
+            <button 
+                id="resume-button" 
+                type="button"
+                style="display: none;"
+                aria-label="Retomar o timer do quiz"
+                aria-pressed="false">
+                Retomar
+            </button>
+        </div>
+        
+        <section aria-labelledby="stats-label">
+            <h2 id="stats-label" class="sr-only">Estatísticas do quiz</h2>
+            <table role="table" aria-label="Estatísticas de acertos e erros">
+                <thead>
+                    <tr>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Certas</th>
+                        <td id="correct-counter" aria-label="Número de questões corretas">0</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Erradas</th>
+                        <td id="incorrect-counter" aria-label="Número de questões erradas">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <p id="status-message" role="status" aria-live="polite">Selecione os grupos para começar</p>
+        
+        <button 
+            id="submit-button" 
+            type="button"
+            aria-label="Enviar respostas e verificar resultado">
+            Enviar Respostas
+        </button>
+        
+        <section aria-labelledby="groups-label">
+            <h2 id="groups-label" class="sr-only">Seleção de grupos</h2>
+            <div id="group-buttons" role="group" aria-label="Seleção de grupos de questões">
+                <button 
+                    class="group-button" 
+                    type="button"
+                    aria-label="Selecionar Grupo 1"
+                    aria-pressed="false"
+                    data-group="1">
+                    Grupo 1
+                </button>
+                <button 
+                    class="group-button" 
+                    type="button"
+                    aria-label="Selecionar Grupo 2"
+                    aria-pressed="false"
+                    data-group="2">
+                    Grupo 2
+                </button>
+                <button 
+                    class="group-button" 
+                    type="button"
+                    aria-label="Selecionar Grupo 3"
+                    aria-pressed="false"
+                    data-group="3">
+                    Grupo 3
+                </button>
+                <button 
+                    class="group-button" 
+                    type="button"
+                    aria-label="Selecionar Grupo 4"
+                    aria-pressed="false"
+                    data-group="4">
+                    Grupo 4
+                </button>
+                <button 
+                    class="group-button" 
+                    type="button"
+                    aria-label="Selecionar Grupo 5"
+                    aria-pressed="false"
+                    data-group="5">
+                    Grupo 5
+                </button>
+                <button 
+                    class="group-button" 
+                    type="button"
+                    aria-label="Selecionar Grupo 6"
+                    aria-pressed="false"
+                    data-group="6">
+                    Grupo 6
+                </button>
+            </div>
+        </section>
+        
+        <div role="group" aria-label="Ações do quiz">
+            <button 
+                id="restart-button" 
+                type="button"
+                aria-label="Reiniciar o quiz e limpar todas as respostas">
+                Reiniciar Quiz
+            </button>
+            <button 
+                id="finish-button" 
+                type="button"
+                aria-label="Finalizar o quiz e ver resultados">
+                Finalizar Quiz
+            </button>
+            <button 
+                id="home-button" 
+                type="button"
+                aria-label="Voltar à página inicial">
+                Voltar à Página Inicial
+            </button>
+        </div>
+    </nav>
+
+    <main id="quiz-box" role="main" aria-label="Área de questões do quiz">
+        <div id="quiz-container" role="region" aria-label="Questões do quiz">
+            <!-- O conteúdo do quiz será gerado dinamicamente aqui -->
+        </div>
+    </main>
+
+    <script src="js/access-control.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
+
