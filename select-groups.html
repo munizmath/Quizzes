@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZ TECH - Seleção de Grupos</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <main class="home-container" role="main">
+        <div class="quiz-selection" role="region" aria-labelledby="groups-heading">
+            <h1 id="groups-heading">QUIZ TECH</h1>
+            
+            <div id="user-info" class="user-info">
+                <p><strong>Nome:</strong> <span id="display-name"></span></p>
+                <p><strong>E-mail:</strong> <span id="display-email"></span></p>
+                <p><strong>Prova:</strong> <span id="display-quiz-type"></span></p>
+            </div>
+            
+            <h2>Selecione os Grupos da Prova</h2>
+            <p>Você pode selecionar até 3 grupos de questões (25 questões cada):</p>
+            
+            <div id="groups-selection" role="group" aria-label="Seleção de grupos de questões">
+                <button 
+                    class="group-button" 
+                    type="button"
+                    data-group="1"
+                    aria-label="Selecionar Grupo 1"
+                    aria-pressed="false">
+                    Grupo 1
+                </button>
+                <button 
+                    class="group-button" 
+                    type="button"
+                    data-group="2"
+                    aria-label="Selecionar Grupo 2"
+                    aria-pressed="false">
+                    Grupo 2
+                </button>
+                <button 
+                    class="group-button" 
+                    type="button"
+                    data-group="3"
+                    aria-label="Selecionar Grupo 3"
+                    aria-pressed="false">
+                    Grupo 3
+                </button>
+                <button 
+                    class="group-button" 
+                    type="button"
+                    data-group="4"
+                    aria-label="Selecionar Grupo 4"
+                    aria-pressed="false">
+                    Grupo 4
+                </button>
+                <button 
+                    class="group-button" 
+                    type="button"
+                    data-group="5"
+                    aria-label="Selecionar Grupo 5"
+                    aria-pressed="false">
+                    Grupo 5
+                </button>
+                <button 
+                    class="group-button" 
+                    type="button"
+                    data-group="6"
+                    aria-label="Selecionar Grupo 6"
+                    aria-pressed="false">
+                    Grupo 6
+                </button>
+            </div>
+            
+            <div id="selected-groups-info" class="selected-groups-info">
+                <p>Grupos selecionados: <span id="selected-count">0</span> de 3</p>
+                <p id="selected-groups-list">Nenhum grupo selecionado</p>
+            </div>
+            
+            <div id="error-message" class="error-message" role="alert" aria-live="polite"></div>
+            
+            <button 
+                id="start-quiz-button" 
+                class="quiz-option"
+                type="button"
+                disabled
+                aria-label="Iniciar o quiz com os grupos selecionados">
+                Iniciar Quiz
+            </button>
+            
+            <button 
+                id="back-button" 
+                class="quiz-option secondary"
+                type="button"
+                aria-label="Voltar para a página inicial">
+                Voltar
+            </button>
+        </div>
+    </main>
+    
+    <script src="js/select-groups.js"></script>
+</body>
+</html>
+

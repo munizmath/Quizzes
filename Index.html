@@ -1,237 +1,43 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>SeuQuiz - Quiz em andamento</title>
- <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        background-color: #312e2e;
-    }
-
-    /* Remova a margem esquerda do quiz-container */
-    #quiz-container {
-        margin-left: 2;
-        width: 100%;
-    }
-
-    #quiz-box {
-    background-color: white;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-    width: calc(100% - 420px); /* Ajuste a largura para não sobrepor a sidebar */
-    margin: 2%;
-    overflow-y: auto;
-    height: 85%;
-    max-width: none;
-    margin-bottom: 1px;
-    
-    }
-
-
-    /* Defina a largura fixa para o sidebar */
-    #sidebar {
-        position: fixed;
-        right: 0;
-        top: 0;
-        width: 300px; /* Defina a largura fixa do sidebar */
-        height: 100%;
-        background-color: #f5f5f5;
-        padding: 20px;
-        box-sizing: border-box;
-        overflow: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    /* Ajuste o body para alinhar itens no início */
-    body {
-        justify-content: flex-start;
-        align-items: flex-start;
-    }
-
-    /* Outros estilos permanecem os mesmos */
-    input[type="radio"], input[type="checkbox"] {
-        display: none;
-    }
-
-    label {
-        display: block;
-        background-color: #007BFF;
-        color: white;
-        padding: 10px;
-        margin: 5px 0;
-        border: 2px solid #000;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    input[type="radio"]:checked + label,
-    input[type="checkbox"]:checked + label {
-        background-color: #5b5c5e;
-    }
-
-    #countdown, #timer {
-        text-align: center;
-        font-size: 2em;
-        margin-bottom: 20px;
-    }
-
-    #score {
-        text-align: center;
-        font-size: 1.5em;
-    }
-
-    label.correct {
-        background-color: green;
-    }
-
-    label.incorrect {
-        background-color: red;
-    }
-
-    label.partially-correct {
-        background-color: yellow;
-    }
-
-    .group-button {
-        background-color: #007BFF;
-        color: white;
-        padding: 10px;
-        margin: 5px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        width: 100px;
-        text-align: center;
-    }
-
-    .group-button:hover {
-        background-color: #0056b3;
-    }
-
-    #submit-button, #pause-button, #restart-button, #finish-button, #home-button {
-        background-color: #007BFF;
-        color: white;
-        padding: 10px;
-        margin: 5px 0;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        text-align: center;
-    }
-
-    #pause-button[disabled], .group-button.selected {
-        background-color: #5b5c5e;
-    }
-
-    #submit-button:hover, #pause-button:hover, #restart-button:hover, #finish-button:hover, #home-button:hover {
-        background-color: #0056b3;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
-
-    td, th {
-        border: 1px solid #dddddd;
-        text-align: center;
-        padding: 8px;
-    }
-
-    tr:nth-child(even) {
-        background-color: #dddddd;
-    }
-
-    /* Responsividade para dispositivos móveis */
-    @media (max-width: 768px) {
-        /* Sidebar e layout geral em dispositivos móveis */
-        #sidebar {
-            position: static;
-            width: 100%;
-            height: auto;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            align-items: center;
-            padding: 10px;
-        }
-
-        /* Ajuste o container do quiz para ocupar toda a largura */
-        #quiz-box {
-            width: 100%;
-            margin: 5;
-            padding: 5px;
-            max-width: none;
-        }
-
-        /* Reduz o tamanho dos botões e dos textos */
-        #quiz-container {
-            font-size: 0.9em;
-        }
-
-        /* Ajusta o tamanho dos botões no sidebar para dispositivos móveis */
-        .group-button, #submit-button, #pause-button, #resume-button, #restart-button, #finish-button, #home-button {
-            width: auto;
-            font-size: 0.9em;
-            padding: 8px;
-        }
-    }
-
-    /* Limite de altura para rolar o quiz box se necessário */
-    #quiz-box {
-        overflow-y: auto;
-        max-height: 70vh;
-    }
-</style>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZ TECH - Página Inicial</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div id="sidebar">
-        <h1>QUIZ TECH<h1> 
-        <h2>Tempo total:</h2>
-        <div id="timer">00:00</div>
-        <button id="pause-button">Pausar</button>
-        <button id="resume-button" style="display: none;">Retomar</button>
-        <table>
-            <tr>
-                <td>Certas</td>
-                <td id="correct-counter">0</td>
-            </tr>
-            <tr>
-                <td>Erradas</td>
-                <td id="incorrect-counter">0</td>
-            </tr>
-        </table>
-        <p id="status-message">Selecione os quizes para começar</p>
-        <button id="submit-button">Enviar Respostas</button>
-        <div id="group-buttons">
-            <button class="group-button" onclick="selectPart(1)">Grupo 1</button>
-            <button class="group-button" onclick="selectPart(2)">Grupo 2</button>
-            <button class="group-button" onclick="selectPart(3)">Grupo 3</button>
-            <button class="group-button" onclick="selectPart(4)">Grupo 4</button>
-            <button class="group-button" onclick="selectPart(5)">Grupo 5</button>
-            <button class="group-button" onclick="selectPart(6)">Grupo 6</button>
+    <main class="home-container" role="main">
+        <div class="quiz-selection" role="region" aria-labelledby="main-heading">
+            <h1 id="main-heading">QUIZ TECH</h1>
+            <p>Selecione o tipo de quiz que deseja fazer:</p>
+            
+            <nav role="navigation" aria-label="Seleção de tipo de quiz">
+                <a 
+                    href="quiz.html?type=aws" 
+                    class="quiz-option"
+                    role="button"
+                    aria-label="Iniciar quiz sobre certificações Amazon Web Services"
+                    id="quiz-aws-link">
+                    <strong>Quiz AWS</strong>
+                    <br>
+                    <small>Certificações Amazon Web Services</small>
+                </a>
+                
+                <a 
+                    href="quiz.html?type=cobit" 
+                    class="quiz-option"
+                    role="button"
+                    aria-label="Iniciar quiz sobre Governança e Gerenciamento de TI"
+                    id="quiz-cobit-link">
+                    <strong>Quiz COBIT</strong>
+                    <br>
+                    <small>Governança e Gerenciamento de TI</small>
+                </a>
+            </nav>
         </div>
-        <button id="restart-button" onclick="resetParts()">Reiniciar Quiz</button>
-        <button id="finish-button">Finalizar Quiz</button>
-        <button id="home-button">Voltar à Página Inicial</button>
-    </div>
-
-    <div id="quiz-box">
-        <div id="quiz-container">
-            <!-- O conteúdo do quiz será gerado dinamicamente aqui -->
-        </div>
-    </div>
-
-    <!-- Inclui o JavaScript ao final do corpo para garantir que o HTML seja carregado primeiro -->
-    <script src="quiz.js"></script>
+    </main>
+    
+    <script src="js/access-control.js"></script>
 </body>
 </html>

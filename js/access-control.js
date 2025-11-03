@@ -8,33 +8,37 @@
     
     // Verificar se estamos na página do quiz
     if (window.location.pathname.includes('quiz.html')) {
-        // Verificar se o acesso foi feito através de index.html
-        const referrer = document.referrer;
-        const fromIndex = referrer.includes('index.html') || 
-                         sessionStorage.getItem('quizAccessGranted') === 'true';
+        // Verificar se há dados do usuário e grupos selecionados
+        const userName = sessionStorage.getItem('userName');
+        const userEmail = sessionStorage.getItem('userEmail');
+        const quizType = sessionStorage.getItem('quizType');
+        const selectedGroups = sessionStorage.getItem('selectedGroups');
         
-        if (!fromIndex) {
-            // Redirecionar para index.html se acesso direto
+        const hasUserData = userName && userEmail && quizType && selectedGroups;
+        const referrer = document.referrer;
+        const fromSelectGroups = referrer.includes('select-groups.html');
+        
+        if (!hasUserData || !fromSelectGroups) {
+            // Redirecionar para index.html se acesso direto ou sem dados
             alert('Por favor, acesse o quiz através da página inicial.');
+            sessionStorage.clear();
             window.location.href = 'index.html';
             return;
         }
+    }
+    
+    // Verificar se estamos na página de seleção de grupos
+    if (window.location.pathname.includes('select-groups.html')) {
+        const userName = sessionStorage.getItem('userName');
+        const userEmail = sessionStorage.getItem('userEmail');
+        const quizType = sessionStorage.getItem('quizType');
         
-        // Limpar flag após uso
-        sessionStorage.removeItem('quizAccessGranted');
-    } else if (window.location.pathname.includes('index.html') || 
-               window.location.pathname.endsWith('/') || 
-               window.location.pathname.endsWith('index.html')) {
-        // Se estamos em index.html, marcar permissão para links de quiz
-        document.addEventListener('DOMContentLoaded', function() {
-            const quizLinks = document.querySelectorAll('a[href*="quiz.html"]');
-            quizLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    // Marcar que o acesso foi autorizado
-                    sessionStorage.setItem('quizAccessGranted', 'true');
-                });
-            });
-        });
+        if (!userName || !userEmail || !quizType) {
+            // Redirecionar para index.html se não houver dados do usuário
+            alert('Por favor, preencha seus dados na página inicial.');
+            window.location.href = 'index.html';
+            return;
+        }
     }
 })();
 

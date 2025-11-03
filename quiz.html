@@ -60,7 +60,7 @@
             </table>
         </section>
         
-        <p id="status-message" role="status" aria-live="polite">Selecione os grupos para começar</p>
+        <p id="status-message" role="status" aria-live="polite">Carregando questões...</p>
         
         <button 
             id="submit-button" 
@@ -69,57 +69,12 @@
             Enviar Respostas
         </button>
         
-        <section aria-labelledby="groups-label">
-            <h2 id="groups-label" class="sr-only">Seleção de grupos</h2>
-            <div id="group-buttons" role="group" aria-label="Seleção de grupos de questões">
-                <button 
-                    class="group-button" 
-                    type="button"
-                    aria-label="Selecionar Grupo 1"
-                    aria-pressed="false"
-                    data-group="1">
-                    Grupo 1
-                </button>
-                <button 
-                    class="group-button" 
-                    type="button"
-                    aria-label="Selecionar Grupo 2"
-                    aria-pressed="false"
-                    data-group="2">
-                    Grupo 2
-                </button>
-                <button 
-                    class="group-button" 
-                    type="button"
-                    aria-label="Selecionar Grupo 3"
-                    aria-pressed="false"
-                    data-group="3">
-                    Grupo 3
-                </button>
-                <button 
-                    class="group-button" 
-                    type="button"
-                    aria-label="Selecionar Grupo 4"
-                    aria-pressed="false"
-                    data-group="4">
-                    Grupo 4
-                </button>
-                <button 
-                    class="group-button" 
-                    type="button"
-                    aria-label="Selecionar Grupo 5"
-                    aria-pressed="false"
-                    data-group="5">
-                    Grupo 5
-                </button>
-                <button 
-                    class="group-button" 
-                    type="button"
-                    aria-label="Selecionar Grupo 6"
-                    aria-pressed="false"
-                    data-group="6">
-                    Grupo 6
-                </button>
+        <section aria-labelledby="user-info-label">
+            <h2 id="user-info-label" class="sr-only">Informações do usuário</h2>
+            <div id="quiz-user-info" class="user-info-small">
+                <p><strong>Nome:</strong> <span id="quiz-user-name"></span></p>
+                <p><strong>Prova:</strong> <span id="quiz-type-display"></span></p>
+                <p><strong>Grupos:</strong> <span id="quiz-groups-display"></span></p>
             </div>
         </section>
         
@@ -136,12 +91,19 @@
                 aria-label="Finalizar o quiz e ver resultados">
                 Finalizar Quiz
             </button>
-            <button 
-                id="home-button" 
-                type="button"
-                aria-label="Voltar à página inicial">
-                Voltar à Página Inicial
-            </button>
+        <button 
+            id="home-button" 
+            type="button"
+            aria-label="Voltar à página inicial">
+            Voltar à Página Inicial
+        </button>
+        
+        <button 
+            id="change-groups-button" 
+            type="button"
+            aria-label="Alterar grupos selecionados">
+            Alterar Grupos
+        </button>
         </div>
     </nav>
 

@@ -43,14 +43,44 @@ const QuizApp = {
         this.submitButton = document.getElementById('submit-button');
         this.finishButton = document.getElementById('finish-button');
         this.homeButton = document.getElementById('home-button');
+        this.changeGroupsButton = document.getElementById('change-groups-button');
         
-        // Obter tipo de quiz da URL
-        const urlParams = new URLSearchParams(window.location.search);
-        this.quizType = urlParams.get('type') || 'aws';
+        // Obter dados do usuário do sessionStorage
+        this.userName = sessionStorage.getItem('userName') || '';
+        this.userEmail = sessionStorage.getItem('userEmail') || '';
+        this.quizType = sessionStorage.getItem('quizType') || 'aws';
+        const selectedGroupsStr = sessionStorage.getItem('selectedGroups');
+        this.selectedParts = selectedGroupsStr ? JSON.parse(selectedGroupsStr) : [];
+        
+        // Exibir informações do usuário
+        this.displayUserInfo();
         
         this.setupEventListeners();
         this.setupKeyboardNavigation();
         this.loadQuizData();
+    },
+    
+    // Exibir informações do usuário
+    displayUserInfo() {
+        const quizUserName = document.getElementById('quiz-user-name');
+        const quizTypeDisplay = document.getElementById('quiz-type-display');
+        const quizGroupsDisplay = document.getElementById('quiz-groups-display');
+        
+        if (quizUserName) quizUserName.textContent = this.userName;
+        
+        if (quizTypeDisplay) {
+            quizTypeDisplay.textContent = this.quizType === 'aws' 
+                ? 'Quiz AWS'
+                : 'Quiz COBIT';
+        }
+        
+        if (quizGroupsDisplay) {
+            if (this.selectedParts.length > 0) {
+                quizGroupsDisplay.textContent = this.selectedParts.sort((a, b) => a - b).join(', ');
+            } else {
+                quizGroupsDisplay.textContent = 'Nenhum grupo selecionado';
+            }
+        }
     },
     
     // Configurar event listeners
@@ -77,18 +107,16 @@ const QuizApp = {
         
         if (this.homeButton) {
             this.homeButton.addEventListener('click', () => {
+                sessionStorage.clear();
                 window.location.href = 'index.html';
             });
         }
         
-        // Botões de grupo
-        const groupButtons = document.querySelectorAll('.group-button');
-        groupButtons.forEach((button) => {
-            const partNumber = parseInt(button.getAttribute('data-group')) || 1;
-            button.addEventListener('click', () => {
-                this.selectPart(partNumber);
+        if (this.changeGroupsButton) {
+            this.changeGroupsButton.addEventListener('click', () => {
+                window.location.href = 'select-groups.html';
             });
-        });
+        }
         
         // Expor funções globais para compatibilidade
         window.selectPart = (partNumber) => this.selectPart(partNumber);
@@ -167,7 +195,13 @@ const QuizApp = {
             this.allQuestions = data.questions || [];
             
             this.hideLoading();
-            this.updateStatusMessage();
+            
+            // Carregar questões dos grupos selecionados automaticamente
+            if (this.selectedParts.length > 0) {
+                this.updateQuiz();
+            } else {
+                this.updateStatusMessage();
+            }
         } catch (error) {
             console.error('Erro ao carregar dados do quiz:', error);
             this.showModal('Erro', `Não foi possível carregar as questões: ${error.message}`);
@@ -423,57 +457,10 @@ const QuizApp = {
         }
     },
     
-    // Selecionar parte/grupo
+    // Selecionar parte/grupo (não usado mais - grupos são selecionados na página anterior)
     selectPart(partNumber) {
-        if (this.selectedParts.length >= 3) {
-            this.showModal('Atenção', 'Você já selecionou 3 partes.');
-            return;
-        }
-        
-        // Verificar se já está selecionado
-        const index = this.selectedParts.indexOf(partNumber);
-        if (index > -1) {
-            this.selectedParts.splice(index, 1);
-            const button = document.querySelector(`.group-button[data-group="${partNumber}"]`);
-            if (button) {
-                button.classList.remove('selected');
-                button.setAttribute('aria-pressed', 'false');
-            }
-            this.updateQuiz();
-            this.announceToScreenReader(`Grupo ${partNumber} desmarcado`);
-            return;
-        }
-        
-        this.selectedParts.push(partNumber);
-        
-        // Verificar combinações permitidas
-        const allowedCombinations = [
-            "1,2,3", "1,2,4", "1,2,5", "1,2,6", 
-            "1,3,4", "2,3,4", "2,5,6", 
-            "3,4,5", "3,4,6", "4,5,6", "1,5,6"
-        ];
-        const tempParts = [...this.selectedParts].sort().join(',');
-        
-        if (!allowedCombinations.includes(tempParts) && this.selectedParts.length === 3) {
-            this.showModal('Atenção', 'Esta combinação de partes não é permitida.');
-            this.selectedParts.pop();
-            return;
-        }
-        
-        // Marcar botão como selecionado
-        const button = document.querySelector(`.group-button[data-group="${partNumber}"]`);
-        if (button) {
-            button.classList.add('selected');
-            button.setAttribute('aria-pressed', 'true');
-        }
-        
-        // Ajustar tempo para 30 minutos ao iniciar
-        this.remainingTime = 30 * 60;
-        if (!this.timerInterval) {
-            this.timerInterval = setInterval(() => this.updateTimer(), 1000);
-        }
-        
-        this.updateQuiz();
+        // Função mantida para compatibilidade, mas grupos já vêm selecionados
+        this.showModal('Informação', 'Para alterar os grupos, clique em "Alterar Grupos" e selecione novamente.');
     },
     
     // Atualizar timer
@@ -543,6 +530,12 @@ const QuizApp = {
         
         this.buildQuiz(this.currentQuestions);
         this.updateStatusMessage();
+        
+        // Iniciar timer se ainda não estiver rodando
+        if (!this.timerInterval && this.selectedParts.length > 0) {
+            this.remainingTime = 30 * 60;
+            this.timerInterval = setInterval(() => this.updateTimer(), 1000);
+        }
     },
     
     // Reiniciar partes

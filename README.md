@@ -221,7 +221,41 @@ npm test
 
 Veja mais detalhes em `tests/README.md`.
 
----
+## 🌐 Hospedagem no GitHub Pages
+
+Este projeto pode ser hospedado gratuitamente no **GitHub Pages** usando uma conta gratuita!
+
+### Como Configurar GitHub Pages
+
+1. **No seu repositório GitHub**, vá em **Settings** (Configurações)
+2. Role até a seção **Pages** (no menu lateral esquerdo)
+3. Em **Source**, selecione:
+   - **Branch**: `main`
+   - **Folder**: `/ (root)`
+4. Clique em **Save**
+5. Aguarde alguns minutos para o GitHub processar
+6. Seu site estará disponível em: `https://[seu-usuario].github.io/Quizzes/`
+
+### Importante para GitHub Pages
+
+- ✅ **Repositório público**: GitHub Pages gratuito só funciona com repositórios públicos
+- ✅ **Site estático**: Este quiz é 100% estático (HTML/CSS/JS), perfeito para GitHub Pages
+- ✅ **Sem backend necessário**: Todas as funcionalidades funcionam apenas no navegador
+- ✅ **Arquivos JSON**: Funcionam normalmente via fetch() no GitHub Pages
+
+### Limitações do GitHub Pages Gratuito
+
+- **Tamanho do repositório**: Até 1 GB
+- **Largura de banda**: 100 GB por mês
+- **Builds**: 10 builds por hora
+- **Repositório público necessário**: Para usar o plano gratuito
+
+### Acessando o Site
+
+Após configurar, seu quiz estará disponível em:
+```
+https://munizmath.github.io/Quizzes/
+```
 
 **Nota**: Certifique-se de que os arquivos JSON estão na pasta `data/` e que o servidor web permite acesso CORS se necessário. O quiz.html só pode ser acessado através do index.html por motivos de segurança.
 
