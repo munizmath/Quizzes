@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZ TECH - PÃ¡gina Inicial</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <main class="home-container" role="main">
+        <div class="quiz-selection" role="region" aria-labelledby="main-heading">
+            <h1 id="main-heading">QUIZ TECH</h1>
+            <p>Preencha seus dados e selecione o tipo de prova:</p>
+            
+            <form id="user-form" role="form" aria-label="FormulÃ¡rio de cadastro para iniciar o quiz">
+                <div class="form-group">
+                    <label for="user-name">Nome Completo:</label>
+                    <input type="text" id="user-name" name="name" required autocomplete="name" aria-required="true" aria-label="Digite seu nome completo" placeholder="Digite seu nome completo">
+                </div>
+                
+                <div class="form-group">
+                    <label for="user-email">E-mail:</label>
+                    <input type="email" id="user-email" name="email" required autocomplete="email" aria-required="true" aria-label="Digite seu e-mail" placeholder="Digite seu e-mail">
+                </div>
+                
+                <div class="form-group">
+                    <label for="quiz-type">Tipo de Prova:</label>
+                    <select id="quiz-type" name="quizType" required aria-required="true" aria-label="Selecione o tipo de prova">
+                        <option value="">Selecione uma opÃ§Ã£o</option>
+                        <option value="aws">Quiz AWS - CertificaÃ§Ãµes Amazon Web Services</option>
+                        <option value="cobit">Quiz COBIT - GovernanÃ§a e Gerenciamento de TI</option>
+                    </select>
+                </div>
+                
+                <button type="submit" id="start-quiz-button" class="quiz-option" aria-label="Iniciar a prova">Iniciar Prova</button>
+            </form>
+        </div>
+    </main>
+    
+    <script src="js/user-form.js"></script>
+</body>
+</html>
