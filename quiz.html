@@ -489,11 +489,57 @@
     </div>
   </main>
 
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
   <script src="js/access-control.js"></script>
   <script src="js/history.js"></script>
   <script src="js/pdf-export.js"></script>
   <script src="js/stats.js"></script>
   <script src="js/script.js"></script>
   <script src="js/pwa-install.js"></script>
+  <script>
+    // Controle do menu hambúrguer em mobile
+    (function() {
+      const menuToggle = document.getElementById('menu-toggle');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebar-overlay');
+      
+      if (menuToggle && sidebar && overlay) {
+        menuToggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const isOpen = sidebar.classList.contains('open');
+          
+          if (isOpen) {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.setAttribute('aria-label', 'Abrir menu');
+          } else {
+            sidebar.classList.add('open');
+            overlay.classList.add('active');
+            menuToggle.setAttribute('aria-expanded', 'true');
+            menuToggle.setAttribute('aria-label', 'Fechar menu');
+          }
+        });
+        
+        overlay.addEventListener('click', function() {
+          sidebar.classList.remove('open');
+          overlay.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          menuToggle.setAttribute('aria-label', 'Abrir menu');
+        });
+        
+        // Fechar ao pressionar ESC
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.setAttribute('aria-label', 'Abrir menu');
+          }
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
