@@ -70,15 +70,83 @@
       box-shadow: var(--shadow-lg);
       z-index:100;
     }
+    /* Botão de menu hambúrguer para mobile */
+    .menu-toggle{
+      display:none;
+      position:fixed;
+      top:12px;
+      left:12px;
+      z-index:101;
+      background:linear-gradient(180deg, var(--primary) 0%, var(--primary-600) 60%, var(--primary-700) 100%);
+      border:none;
+      border-radius:8px;
+      padding:10px;
+      cursor:pointer;
+      box-shadow: 0 8px 16px rgba(37,99,235,.3);
+      width:44px;
+      height:44px;
+      align-items:center;
+      justify-content:center;
+      transition: transform .06s ease, filter .2s ease;
+    }
+
+    .menu-toggle:hover{filter:brightness(1.08)}
+    .menu-toggle:active{transform:translateY(1px)}
+
+    .menu-toggle svg{
+      width:24px;
+      height:24px;
+      fill:white;
+    }
+
+    /* Overlay para fechar sidebar ao clicar fora */
+    .sidebar-overlay{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.5);
+      z-index:99;
+      opacity:0;
+      transition:opacity 0.3s ease;
+    }
+
+    .sidebar-overlay.active{
+      display:block;
+      opacity:1;
+    }
+
+    @media (min-width: 769px){
+      .sidebar-overlay{
+        display:none !important;
+      }
+    }
+
     @media (max-width: 768px){
+      .menu-toggle{
+        display:flex;
+      }
+      
       #sidebar{
-        width:100%; 
-        height:auto; 
-        position:relative; 
-        border-right:none; 
-        border-bottom:1px solid var(--border);
+        position:fixed;
+        left:-100%;
+        top:0;
+        bottom:0;
+        width:280px;
+        transition:left 0.3s ease;
+        z-index:100;
+        border-right:1px solid var(--border);
+        height:100%;
         padding:12px;
       }
+      
+      #sidebar.open{
+        left:0;
+      }
+      
+      #sidebar h1 svg{
+        display:none;
+      }
+      
       #sidebar h1{font-size:16px; margin:0 0 12px; padding-bottom:8px}
       #sidebar h2{font-size:12px; margin:12px 0 6px}
       #sidebar section{margin:12px 0}
@@ -346,6 +414,12 @@
   <a href="#quiz-container" class="skip-link">Pular para conteúdo principal</a>
   <div id="status-region" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   
+  <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+    </svg>
+  </button>
+
   <nav id="sidebar" role="complementary" aria-label="Painel de controle do quiz">
     <h1>
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block; vertical-align:middle">
