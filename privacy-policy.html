@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz Tech • Política de Privacidade</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1020;
+      --bg-alt:#0d1328;
+      --border:rgba(255,255,255,.12);
+      --text:#e6edf3;
+      --muted:#a9b1bd;
+      --primary:#3b82f6;
+      --radius:18px;
+      --shadow-lg:0 20px 40px rgba(0,0,0,.35);
+    }
+
+    html,body{height:100%; margin:0; padding:0; width:100%; box-sizing:border-box}
+    *{box-sizing:border-box}
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text);
+      background:linear-gradient(180deg,var(--bg),var(--bg-alt)) fixed; 
+      overflow-x:hidden;
+      padding:20px;
+    }
+
+    .container{max-width:900px; margin:0 auto;}
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
+      border:1px solid var(--border);
+      border-radius:calc(var(--radius) + 2px);
+      padding:32px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom:24px;
+    }
+
+    .card h1{font-size:28px; margin-bottom:16px; color:var(--text)}
+    .card h2{font-size:20px; margin:24px 0 12px; color:var(--text)}
+    .card p{line-height:1.6; color:var(--text); margin-bottom:12px}
+    .card ul{line-height:1.8; color:var(--text); margin-left:20px}
+    .card li{margin-bottom:8px}
+
+    .back-btn{
+      display:inline-block;
+      padding:12px 24px;
+      border-radius:8px;
+      background:var(--primary);
+      color:white;
+      text-decoration:none;
+      font-weight:600;
+      margin-top:24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Política de Privacidade - Quiz Tech</h1>
+      
+      <p><strong>Última atualização:</strong> ${new Date().toLocaleDateString('pt-BR')}</p>
+
+      <h2>1. Informações Coletadas</h2>
+      <p>O Quiz Tech coleta as seguintes informações:</p>
+      <ul>
+        <li><strong>Nome completo:</strong> Usado para identificar tentativas de quiz</li>
+        <li><strong>E-mail:</strong> Usado para identificação e possível comprovante</li>
+        <li><strong>Resultados de quiz:</strong> Pontuações, respostas e estatísticas</li>
+        <li><strong>Dados de navegação:</strong> Páginas visitadas e tempo de uso</li>
+      </ul>
+
+      <h2>2. Como Usamos suas Informações</h2>
+      <p>As informações coletadas são usadas para:</p>
+      <ul>
+        <li>Identificar tentativas de quiz</li>
+        <li>Gerar histórico de tentativas</li>
+        <li>Calcular estatísticas de desempenho</li>
+        <li>Melhorar a experiência do usuário</li>
+      </ul>
+
+      <h2>3. Armazenamento de Dados</h2>
+      <p>Os dados são armazenados localmente no seu navegador usando:</p>
+      <ul>
+        <li><strong>SessionStorage:</strong> Dados temporários da sessão atual</li>
+        <li><strong>LocalStorage:</strong> Preferências e configurações</li>
+        <li><strong>IndexedDB:</strong> Histórico de tentativas e resultados</li>
+      </ul>
+      <p><strong>Importante:</strong> Nenhum dado é enviado para servidores externos. Todos os dados permanecem no seu dispositivo.</p>
+
+      <h2>4. Compartilhamento de Dados</h2>
+      <p>Não compartilhamos seus dados com terceiros. Todos os dados são armazenados localmente no seu navegador.</p>
+
+      <h2>5. Seus Direitos</h2>
+      <p>Você tem o direito de:</p>
+      <ul>
+        <li>Acessar seus dados armazenados</li>
+        <li>Exportar seus dados</li>
+        <li>Deletar seus dados (limpar histórico)</li>
+        <li>Recusar o uso de cookies (se aplicável)</li>
+      </ul>
+
+      <h2>6. Segurança</h2>
+      <p>Implementamos medidas de segurança para proteger seus dados:</p>
+      <ul>
+        <li>Armazenamento local seguro</li>
+        <li>HTTPS para conexões seguras</li>
+        <li>Validação de entrada de dados</li>
+        <li>Prevenção de XSS (Cross-Site Scripting)</li>
+      </ul>
+
+      <h2>7. Cookies</h2>
+      <p>O Quiz Tech pode usar cookies para:</p>
+      <ul>
+        <li>Manter preferências do usuário</li>
+        <li>Armazenar configurações de tema</li>
+        <li>Melhorar a experiência de uso</li>
+      </ul>
+
+      <h2>8. Alterações nesta Política</h2>
+      <p>Podemos atualizar esta política de privacidade periodicamente. Recomendamos revisar esta página regularmente.</p>
+
+      <h2>9. Contato</h2>
+      <p>Para questões sobre esta política de privacidade, entre em contato através do repositório GitHub do projeto.</p>
+
+      <a href="index.html" class="back-btn">Voltar</a>
+    </div>
+  </div>
+</body>
+</html>
+

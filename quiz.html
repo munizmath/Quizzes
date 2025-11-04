@@ -495,9 +495,44 @@
   <script src="js/history.js"></script>
   <script src="js/pdf-export.js"></script>
   <script src="js/stats.js"></script>
+  <script src="js/theme-manager.js"></script>
+  <script src="js/progress-tracker.js"></script>
+  <script src="js/study-mode.js"></script>
+  <script src="js/question-filters.js"></script>
+  <script src="js/bookmark-manager.js"></script>
+  <script src="js/lazy-loader.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/sound-manager.js"></script>
+  <script src="js/flashcard-mode.js"></script>
+  <script src="js/font-size-manager.js"></script>
+  <script src="js/data-export.js"></script>
   <script src="js/script.js"></script>
   <script src="js/pwa-install.js"></script>
   <script>
+    // Inicializar módulos de melhorias
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof ThemeManager !== 'undefined') ThemeManager.init();
+      if (typeof ProgressTracker !== 'undefined') ProgressTracker.init();
+      if (typeof StudyMode !== 'undefined') StudyMode.init();
+      if (typeof QuestionFilters !== 'undefined') QuestionFilters.init();
+      if (typeof BookmarkManager !== 'undefined') BookmarkManager.init();
+      if (typeof LazyLoader !== 'undefined') LazyLoader.init();
+      if (typeof I18n !== 'undefined') I18n.init();
+      if (typeof SoundManager !== 'undefined') SoundManager.init();
+      if (typeof FlashcardMode !== 'undefined') FlashcardMode.init();
+      if (typeof FontSizeManager !== 'undefined') FontSizeManager.init();
+      
+      // Setup export/delete data buttons
+      const exportBtn = document.getElementById('export-data-button');
+      const deleteBtn = document.getElementById('delete-data-button');
+      if (exportBtn && typeof DataExporter !== 'undefined') {
+        exportBtn.addEventListener('click', () => DataExporter.exportUserData());
+      }
+      if (deleteBtn && typeof DataExporter !== 'undefined') {
+        deleteBtn.addEventListener('click', () => DataExporter.deleteAllData());
+      }
+    });
+
     // Controle do menu hambúrguer em mobile
     (function() {
       const menuToggle = document.getElementById('menu-toggle');
