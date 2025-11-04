@@ -1,0 +1,93 @@
+{
+  "name": "QUIZ TECH",
+  "short_name": "QuizTech",
+  "description": "Sistema interativo de quiz para preparação de certificações técnicas",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#312e2e",
+  "theme_color": "#007BFF",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "productivity"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Quiz AWS",
+      "short_name": "AWS",
+      "description": "Iniciar quiz AWS",
+      "url": "./index.html?quiz=aws",
+      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Quiz COBIT",
+      "short_name": "COBIT",
+      "description": "Iniciar quiz COBIT",
+      "url": "./index.html?quiz=cobit",
+      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Quiz ITIL 4",
+      "short_name": "ITIL4",
+      "description": "Iniciar quiz ITIL 4 Foundations",
+      "url": "./index.html?quiz=itil4",
+      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Quiz AZ-900",
+      "short_name": "AZ900",
+      "description": "Iniciar quiz AZ-900 Azure Fundamentals",
+      "url": "./index.html?quiz=az900",
+      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
+    }
+  ]
+}
+

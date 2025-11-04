@@ -1,0 +1,42 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "O que é o Microsoft Azure?",
+      "options": {
+        "A": "Um sistema operacional para servidores",
+        "B": "Uma plataforma de nuvem pública para criar, gerenciar e implantar aplicações e serviços",
+        "C": "Um banco de dados específico",
+        "D": "Um software de virtualização"
+      },
+      "correctAnswer": "B",
+      "explanation": "O Microsoft Azure é uma plataforma de nuvem pública que oferece serviços de computação, armazenamento, rede e muito mais."
+    },
+    {
+      "id": 2,
+      "question": "Qual é o modelo de responsabilidade compartilhada no Azure?",
+      "options": {
+        "A": "A Microsoft é responsável por tudo",
+        "B": "O cliente é responsável por tudo",
+        "C": "A responsabilidade é compartilhada entre a Microsoft e o cliente, dependendo do tipo de serviço",
+        "D": "Não há responsabilidades definidas"
+      },
+      "correctAnswer": "C",
+      "explanation": "No modelo de responsabilidade compartilhada, a Microsoft é responsável pela infraestrutura de nuvem e o cliente é responsável pelos dados e acesso, com responsabilidades variando conforme o tipo de serviço."
+    },
+    {
+      "id": 3,
+      "question": "O que é uma assinatura do Azure?",
+      "options": {
+        "A": "Um serviço de email",
+        "B": "Um contrato de licenciamento de software",
+        "C": "Uma conta lógica usada para provisionar recursos do Azure e fornecer limites de cobrança",
+        "D": "Um tipo de máquina virtual"
+      },
+      "correctAnswer": "C",
+      "explanation": "Uma assinatura do Azure é uma conta lógica que é usada para provisionar recursos do Azure e fornece limites de cobrança e governança."
+    }
+  ],
+  "note": "Este arquivo contém questões de exemplo. Para uso em produção, adicione questões oficiais do banco de questões do exame AZ-900 (Microsoft Azure Fundamentals). Certifique-se de ter os direitos necessários para usar questões oficiais."
+}
+

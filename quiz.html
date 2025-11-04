@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz Tech • Quiz em Andamento</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <style>
+    :root{
+      --bg:#0b1020;
+      --bg-alt:#0d1328;
+      --surface:rgba(255,255,255,.06);
+      --border:rgba(255,255,255,.12);
+      --text:#e6edf3;
+      --muted:#a9b1bd;
+      --primary:#3b82f6;
+      --primary-600:#2563eb;
+      --primary-700:#1d4ed8;
+      --ring:rgba(59,130,246,.45);
+      --success:#10b981;
+      --danger:#ef4444;
+      --radius:18px;
+      --shadow-lg:0 20px 40px rgba(0,0,0,.35);
+      --shadow-md:0 12px 24px rgba(0,0,0,.25);
+      --grad-1: radial-gradient(1200px 600px at 10% -10%, rgba(59,130,246,.28), transparent 60%),
+                radial-gradient(900px 500px at 110% 10%, rgba(99,102,241,.25), transparent 55%),
+                radial-gradient(900px 700px at 50% 120%, rgba(16,185,129,.18), transparent 55%);
+    }
+
+    html,body{height:100%; margin:0; padding:0; width:100%; box-sizing:border-box}
+    *{box-sizing:border-box}
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text);
+      background:linear-gradient(180deg,var(--bg),var(--bg-alt)) fixed; 
+      overflow-x:hidden;
+      width:100%;
+    }
+    @media (max-width: 768px){
+      body{
+        font-size:14px;
+      }
+    }
+
+    .backdrop{
+      position:fixed; inset:0; pointer-events:none; z-index:-1;
+      background: var(--grad-1);
+      filter: saturate(115%);
+      animation: floatGrad 22s ease-in-out infinite alternate;
+    }
+    .grain{position:fixed;inset:0;pointer-events:none;opacity:.08;z-index:-1;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="800"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity=".5"/></svg>');mix-blend-mode:soft-light}
+    @keyframes floatGrad{from{transform:translateY(-2%)}to{transform:translateY(2%)}}
+
+    .skip-link{
+      position:absolute; left:-9999px; z-index:999;
+      padding:8px 16px; background:var(--primary); color:white; text-decoration:none;
+    }
+    .skip-link:focus{left:6px; top:6px}
+
+    #status-region{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden}
+
+    #sidebar{
+      position:fixed; left:0; top:0; bottom:0; width:280px;
+      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
+      border-right:1px solid var(--border);
+      padding:20px; overflow-y:auto;
+      box-shadow: var(--shadow-lg);
+      z-index:100;
+    }
+    /* Botão de menu hambúrguer para mobile */
+    .menu-toggle{
+      display:none;
+      position:fixed;
+      top:12px;
+      left:12px;
+      z-index:101;
+      background:linear-gradient(180deg, var(--primary) 0%, var(--primary-600) 60%, var(--primary-700) 100%);
+      border:none;
+      border-radius:8px;
+      padding:10px;
+      cursor:pointer;
+      box-shadow: 0 8px 16px rgba(37,99,235,.3);
+      width:44px;
+      height:44px;
+      align-items:center;
+      justify-content:center;
+      transition: transform .06s ease, filter .2s ease;
+    }
+
+    .menu-toggle:hover{filter:brightness(1.08)}
+    .menu-toggle:active{transform:translateY(1px)}
+
+    .menu-toggle svg{
+      width:24px;
+      height:24px;
+      fill:white;
+    }
+
+    /* Overlay para fechar sidebar ao clicar fora */
+    .sidebar-overlay{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.5);
+      z-index:99;
+      opacity:0;
+      transition:opacity 0.3s ease;
+    }
+
+    .sidebar-overlay.active{
+      display:block;
+      opacity:1;
+    }
+
+    @media (min-width: 769px){
+      .sidebar-overlay{
+        display:none !important;
+      }
+    }
+
+    @media (max-width: 768px){
+      .menu-toggle{
+        display:flex;
+      }
+      
+      #sidebar{
+        position:fixed;
+        left:-100%;
+        top:0;
+        bottom:0;
+        width:280px;
+        transition:left 0.3s ease;
+        z-index:100;
+        border-right:1px solid var(--border);
+        height:100%;
+        padding:12px;
+      }
+      
+      #sidebar.open{
+        left:0;
+      }
+      
+      #sidebar h1 svg{
+        display:none;
+      }
+      
+      #sidebar h1{font-size:16px; margin:0 0 12px; padding-bottom:8px}
+      #sidebar h2{font-size:12px; margin:12px 0 6px}
+      #sidebar section{margin:12px 0}
+      #sidebar table{font-size:12px}
+      #sidebar table th, #sidebar table td{padding:6px 8px}
+      #sidebar button{font-size:12px; padding:10px 12px; margin:4px 0}
+      #timer{font-size:18px; padding:8px}
+      .user-info-small{font-size:11px; padding:8px}
+    }
+
+    #sidebar h1{
+      font-size:20px; font-weight:800; margin:0 0 20px; padding-bottom:16px;
+      border-bottom:1px solid var(--border);
+      display:flex; align-items:center; gap:10px;
+    }
+    #sidebar h2{
+      font-size:14px; font-weight:600; color:var(--muted);
+      margin:20px 0 8px; text-transform:uppercase; letter-spacing:.5px;
+    }
+    #sidebar section{margin:20px 0}
+    #sidebar table{
+      width:100%; border-collapse:collapse; font-size:14px;
+      background:rgba(8,12,24,.4); border-radius:8px; overflow:hidden;
+    }
+    #sidebar table th, #sidebar table td{
+      padding:8px 12px; text-align:left;
+    }
+    #sidebar table th{background:rgba(255,255,255,.06); color:var(--muted); font-weight:600}
+    #sidebar table td{color:var(--text)}
+
+    #timer{
+      font-size:24px; font-weight:700; color:var(--primary);
+      background:rgba(59,130,246,.1); border:1px solid var(--primary);
+      border-radius:8px; padding:12px; text-align:center;
+      margin:8px 0;
+    }
+
+    #sidebar button{
+      appearance:none; border:none; cursor:pointer; user-select:none;
+      width:100%; padding:12px 16px; border-radius:10px; margin:6px 0;
+      background:linear-gradient(180deg, var(--primary) 0%, var(--primary-600) 60%, var(--primary-700) 100%);
+      color:white; font-weight:600; font-size:14px;
+      box-shadow: 0 8px 16px rgba(37,99,235,.3);
+      transition: transform .06s ease, filter .2s ease;
+    }
+    #sidebar button:hover{filter:brightness(1.08)}
+    #sidebar button:active{transform:translateY(1px)}
+    #sidebar button[style*="display: none"]{display:none !important}
+
+    #status-message{
+      background:rgba(59,130,246,.1); border:1px solid var(--primary);
+      border-radius:8px; padding:12px; margin:12px 0;
+      color:var(--text); font-size:14px; text-align:center;
+    }
+
+    .user-info-small{
+      background:rgba(8,12,24,.4); border:1px solid var(--border);
+      border-radius:8px; padding:12px; margin:12px 0;
+      font-size:13px;
+    }
+    .user-info-small p{margin:6px 0; color:var(--text)}
+    .user-info-small strong{color:var(--muted); font-weight:600}
+
+    #quiz-box{
+      margin-left:280px; padding:20px; min-height:100vh;
+      box-sizing:border-box;
+    }
+    @media (max-width: 768px){
+      #quiz-box{
+        margin-left:0; 
+        padding:12px;
+        width:100%;
+        box-sizing:border-box;
+      }
+    }
+
+    #quiz-container{
+      max-width:900px; margin:0 auto;
+      width:100%;
+      box-sizing:border-box;
+    }
+    @media (max-width: 768px){
+      #quiz-container{
+        max-width:100%;
+        padding:0;
+      }
+    }
+
+    .question-card,
+    .question{
+      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
+      border:1px solid var(--border);
+      border-radius:calc(var(--radius) + 2px);
+      padding:24px;
+      margin-bottom:24px;
+      box-shadow: var(--shadow-lg);
+      width:100%;
+      box-sizing:border-box;
+    }
+    @media (max-width: 768px){
+      .question-card,
+      .question{
+        padding:16px;
+        margin-bottom:16px;
+        border-radius:12px;
+      }
+    }
+
+    .question h3{
+      color:var(--text);
+      font-size:18px;
+      font-weight:600;
+      margin-bottom:16px;
+      line-height:1.6;
+      word-wrap:break-word;
+    }
+    @media (max-width: 768px){
+      .question h3{
+        font-size:16px;
+        margin-bottom:12px;
+        line-height:1.5;
+      }
+    }
+
+    .answers{
+      margin-top:12px;
+    }
+
+    .question-number{
+      font-size:12px; font-weight:600; color:var(--muted);
+      text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px;
+    }
+
+    .question-text{
+      font-size:18px; font-weight:600; color:var(--text);
+      line-height:1.6; margin-bottom:20px;
+    }
+
+    .options-list{
+      list-style:none; padding:0; margin:0;
+    }
+
+    .option-item{
+      margin-bottom:12px;
+    }
+
+    .option-label,
+    .answer,
+    label.answer{
+      display:flex; align-items:center; gap:12px;
+      padding:14px 16px; border-radius:10px;
+      border:2px solid var(--border);
+      background:rgba(8,12,24,.4);
+      cursor:pointer; transition:.2s ease;
+      color:var(--text);
+      margin-bottom:8px;
+      width:100%;
+      box-sizing:border-box;
+      word-wrap:break-word;
+    }
+    @media (max-width: 768px){
+      .option-label,
+      .answer,
+      label.answer{
+        padding:12px;
+        gap:8px;
+        font-size:14px;
+        min-height:44px;
+      }
+    }
+
+    .option-label:hover,
+    .answer:hover,
+    label.answer:hover{
+      border-color:var(--primary);
+      background:rgba(59,130,246,.1);
+    }
+
+    .option-label input[type="radio"],
+    .option-label input[type="checkbox"],
+    .answer input[type="radio"],
+    .answer input[type="checkbox"],
+    label.answer input[type="radio"],
+    label.answer input[type="checkbox"]{
+      width:20px; height:20px; cursor:pointer;
+      accent-color:var(--primary);
+      flex-shrink:0;
+      min-width:20px;
+    }
+    @media (max-width: 768px){
+      .option-label input[type="radio"],
+      .option-label input[type="checkbox"],
+      .answer input[type="radio"],
+      .answer input[type="checkbox"],
+      label.answer input[type="radio"],
+      label.answer input[type="checkbox"]{
+        width:18px;
+        height:18px;
+        min-width:18px;
+      }
+    }
+
+    .option-label input[type="radio"]:checked + span,
+    .answer input[type="radio"]:checked,
+    label.answer input[type="radio"]:checked{
+      color:var(--primary); font-weight:600;
+    }
+
+    .option-label:has(input[type="radio"]:checked),
+    .option-label:has(input[type="checkbox"]:checked),
+    .answer:has(input[type="radio"]:checked),
+    .answer:has(input[type="checkbox"]:checked),
+    label.answer:has(input[type="radio"]:checked),
+    label.answer:has(input[type="checkbox"]:checked){
+      border-color:var(--primary);
+      background:rgba(59,130,246,.15);
+    }
+
+    /* Estilos para respostas corretas e incorretas */
+    .option-label.correct,
+    .answer.correct,
+    label.correct{
+      background-color: rgba(16,185,129,.2) !important;
+      border-color: var(--success) !important;
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .option-label.incorrect,
+    .answer.incorrect,
+    label.incorrect{
+      background-color: rgba(239,68,68,.2) !important;
+      border-color: var(--danger) !important;
+      color: var(--danger);
+      font-weight: 600;
+    }
+
+    .option-label.correct input[type="radio"]:checked,
+    .option-label.correct input[type="checkbox"]:checked,
+    .answer.correct input[type="radio"]:checked,
+    .answer.correct input[type="checkbox"]:checked,
+    label.correct input[type="radio"]:checked,
+    label.correct input[type="checkbox"]:checked{
+      accent-color: var(--success);
+    }
+
+    .option-label.incorrect input[type="radio"]:checked,
+    .option-label.incorrect input[type="checkbox"]:checked,
+    .answer.incorrect input[type="radio"]:checked,
+    .answer.incorrect input[type="checkbox"]:checked,
+    label.incorrect input[type="radio"]:checked,
+    label.incorrect input[type="checkbox"]:checked{
+      accent-color: var(--danger);
+    }
+
+    .sr-only{
+      position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;
+    }
+  </style>
+</head>
+<body>
+  <div class="backdrop"></div>
+  <div class="grain"></div>
+
+  <a href="#quiz-container" class="skip-link">Pular para conteúdo principal</a>
+  <div id="status-region" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  
+  <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+    </svg>
+  </button>
+
+  <nav id="sidebar" role="complementary" aria-label="Painel de controle do quiz">
+    <h1>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block; vertical-align:middle">
+        <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
+      </svg>
+      Quiz Tech
+    </h1>
+    
+    <section aria-labelledby="timer-label">
+      <h2 id="timer-label">Tempo total</h2>
+      <div id="timer" role="timer" aria-live="polite" aria-atomic="true">00:00</div>
+    </section>
+    
+    <div role="group" aria-label="Controles do timer">
+      <button id="pause-button" type="button" aria-label="Pausar o timer do quiz" aria-pressed="false">Pausar</button>
+      <button id="resume-button" type="button" style="display: none;" aria-label="Retomar o timer do quiz" aria-pressed="false">Retomar</button>
+    </div>
+    
+    <section aria-labelledby="stats-label">
+      <h2 id="stats-label" class="sr-only">Estatísticas do quiz</h2>
+      <table role="table" aria-label="Estatísticas de acertos e erros">
+        <thead>
+          <tr>
+            <th scope="col">Tipo</th>
+            <th scope="col">Quantidade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Certas</th>
+            <td id="correct-counter" aria-label="Número de questões corretas">0</td>
+          </tr>
+          <tr>
+            <th scope="row">Erradas</th>
+            <td id="incorrect-counter" aria-label="Número de questões erradas">0</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    
+    <p id="status-message" role="status" aria-live="polite">Carregando questões...</p>
+    
+    <button id="submit-button" type="button" aria-label="Enviar respostas e verificar resultado">Enviar Respostas</button>
+    
+    <section aria-labelledby="user-info-label">
+      <h2 id="user-info-label" class="sr-only">Informações do usuário</h2>
+      <div id="quiz-user-info" class="user-info-small">
+        <p><strong>Nome:</strong> <span id="quiz-user-name"></span></p>
+        <p><strong>Prova:</strong> <span id="quiz-type-display"></span></p>
+        <p><strong>Grupos:</strong> <span id="quiz-groups-display"></span></p>
+        <p id="quiz-time-spent" style="display: none;"><strong>Tempo gasto:</strong> <span id="time-spent-display"></span></p>
+      </div>
+    </section>
+    
+    <div role="group" aria-label="Ações do quiz">
+      <button id="restart-button" type="button" aria-label="Reiniciar o quiz e limpar todas as respostas">Reiniciar Quiz</button>
+      <button id="finish-button" type="button" aria-label="Finalizar o quiz e ver resultados">Finalizar Quiz</button>
+      <button id="home-button" type="button" aria-label="Voltar à página inicial">Voltar à Página Inicial</button>
+      <button id="change-groups-button" type="button" aria-label="Alterar grupos selecionados">Alterar Grupos</button>
+      <button id="history-button" type="button" aria-label="Ver histórico de tentativas">Ver Histórico</button>
+    </div>
+  </nav>
+
+  <main id="quiz-box" role="main" aria-label="Área de questões do quiz">
+    <div id="quiz-container" role="region" aria-label="Questões do quiz">
+      <!-- O conteúdo do quiz será gerado dinamicamente aqui -->
+    </div>
+  </main>
+
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <script src="js/access-control.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/pdf-export.js"></script>
+  <script src="js/stats.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/pwa-install.js"></script>
+  <script>
+    // Controle do menu hambúrguer em mobile
+    (function() {
+      const menuToggle = document.getElementById('menu-toggle');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebar-overlay');
+      
+      if (menuToggle && sidebar && overlay) {
+        menuToggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const isOpen = sidebar.classList.contains('open');
+          
+          if (isOpen) {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.setAttribute('aria-label', 'Abrir menu');
+          } else {
+            sidebar.classList.add('open');
+            overlay.classList.add('active');
+            menuToggle.setAttribute('aria-expanded', 'true');
+            menuToggle.setAttribute('aria-label', 'Fechar menu');
+          }
+        });
+        
+        overlay.addEventListener('click', function() {
+          sidebar.classList.remove('open');
+          overlay.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          menuToggle.setAttribute('aria-label', 'Abrir menu');
+        });
+        
+        // Fechar ao pressionar ESC
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.setAttribute('aria-label', 'Abrir menu');
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

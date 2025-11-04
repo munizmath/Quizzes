@@ -1,0 +1,42 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "O que é o Guia de Práticas do ITIL 4?",
+      "options": {
+        "A": "Um conjunto de processos obrigatórios para todas as organizações",
+        "B": "Um framework de práticas recomendadas para gerenciamento de serviços de TI",
+        "C": "Uma certificação obrigatória para profissionais de TI",
+        "D": "Um software específico para gerenciamento de serviços"
+      },
+      "correctAnswer": "B",
+      "explanation": "O ITIL 4 é um framework de práticas recomendadas que ajuda as organizações a gerenciar serviços de TI de forma eficaz, mas não é obrigatório."
+    },
+    {
+      "id": 2,
+      "question": "Qual é o objetivo principal do gerenciamento de incidentes?",
+      "options": {
+        "A": "Prevenir todos os incidentes",
+        "B": "Restaurar o serviço normal o mais rápido possível",
+        "C": "Identificar a causa raiz de todos os problemas",
+        "D": "Melhorar continuamente todos os processos"
+      },
+      "correctAnswer": "B",
+      "explanation": "O gerenciamento de incidentes tem como objetivo restaurar o serviço normal o mais rápido possível, minimizando o impacto nos negócios."
+    },
+    {
+      "id": 3,
+      "question": "O que é um Change Request no ITIL 4?",
+      "options": {
+        "A": "Uma solicitação de novo serviço",
+        "B": "Uma proposta ou solicitação para fazer uma modificação em um serviço ou componente",
+        "C": "Um relatório de incidente",
+        "D": "Uma atualização automática de sistema"
+      },
+      "correctAnswer": "B",
+      "explanation": "Um Change Request é uma proposta formal para fazer uma modificação em um serviço de TI ou em qualquer um de seus componentes."
+    }
+  ],
+  "note": "Este arquivo contém questões de exemplo. Para uso em produção, adicione questões oficiais do banco de questões do ITIL 4 Foundations. Certifique-se de ter os direitos necessários para usar questões oficiais."
+}
+

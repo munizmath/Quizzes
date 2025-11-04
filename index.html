@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz Tech • Início</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <style>
+    :root{
+      --bg:#0b1020;                  /* fundo base */
+      --bg-alt:#0d1328;              /* variantes do fundo */
+      --surface:rgba(255,255,255,.06);/* cartão translúcido */
+      --border:rgba(255,255,255,.12);/* borda sutil */
+      --text:#e6edf3;                /* texto principal */
+      --muted:#a9b1bd;               /* texto secundário */
+      --primary:#3b82f6;             /* azul primário */
+      --primary-600:#2563eb;         
+      --primary-700:#1d4ed8;
+      --ring:rgba(59,130,246,.45);   /* foco */
+      --success:#10b981;
+      --danger:#ef4444;
+      --radius:18px;
+      --shadow-lg:0 20px 40px rgba(0,0,0,.35);
+      --shadow-md:0 12px 24px rgba(0,0,0,.25);
+      --grad-1: radial-gradient(1200px 600px at 10% -10%, rgba(59,130,246,.28), transparent 60%),
+                radial-gradient(900px 500px at 110% 10%, rgba(99,102,241,.25), transparent 55%),
+                radial-gradient(900px 700px at 50% 120%, rgba(16,185,129,.18), transparent 55%);
+    }
+
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text);
+      background:linear-gradient(180deg,var(--bg),var(--bg-alt)) fixed; 
+      overflow-x:hidden;
+    }
+
+    /* pano de fundo com gradientes animados + leve textura */
+    .backdrop{
+      position:fixed; inset:0; pointer-events:none; z-index:-1;
+      background: var(--grad-1);
+      filter: saturate(115%);
+      animation: floatGrad 22s ease-in-out infinite alternate;
+    }
+    .grain{position:fixed;inset:0;pointer-events:none;opacity:.08;z-index:-1;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="800"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity=".5"/></svg>');mix-blend-mode:soft-light}
+    @keyframes floatGrad{from{transform:translateY(-2%)}to{transform:translateY(2%)}}
+
+    .container{max-width:1120px; margin: clamp(24px,4vw,48px) auto; padding: 0 20px;}
+
+    /* barra superior */
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      margin-bottom:28px;
+    }
+    .brand{display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--text)}
+    .brand-logo{
+      width:40px; height:40px; border-radius:12px; display:grid; place-items:center;
+      background:linear-gradient(135deg,var(--primary) 0%, var(--primary-700) 100%);
+      box-shadow: var(--shadow-md);
+    }
+    .brand-title{font-weight:800; letter-spacing:.4px; font-size: clamp(18px,2.4vw,22px)}
+
+    .theme-chip{font-size:12px; padding:6px 10px; border:1px solid var(--border); border-radius:999px; color:var(--muted); background:rgba(255,255,255,.04)}
+
+    /* hero */
+    .hero{
+      display:grid; grid-template-columns: 1.1fr .9fr; gap:28px;
+    }
+    @media (max-width: 900px){ .hero{ grid-template-columns: 1fr; } }
+
+    .hero-left{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--border);
+      border-radius: calc(var(--radius) + 6px);
+      padding: clamp(20px,3.2vw,28px);
+      box-shadow: var(--shadow-lg);
+      position:relative; overflow:hidden;
+    }
+    .hero-left:before{
+      content:""; position:absolute; inset:-1px; border-radius:inherit; pointer-events:none;
+      background: radial-gradient(700px 240px at 10% -10%, rgba(59,130,246,.25), transparent 60%),
+                  radial-gradient(400px 220px at 90% 10%, rgba(16,185,129,.18), transparent 55%);
+      opacity:.55;
+    }
+    .hero-title{font-size: clamp(28px, 4.6vw, 44px); line-height:1.05; margin: 8px 0 12px; font-weight: 800}
+    .hero-sub{color:var(--muted); font-size: clamp(14px,1.6vw,16px); line-height:1.6}
+    .badges{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
+    .badge{padding:8px 12px; border-radius:999px; border:1px solid var(--border); background:rgba(255,255,255,.04); font-size:12px; color:var(--muted)}
+
+    /* cartão do formulário */
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) + 2px);
+      padding: clamp(18px,2.4vw,22px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card h2{margin:0 0 6px; font-size:18px; font-weight:700}
+    .card p{margin:0 0 18px; color:var(--muted); font-size:14px; line-height:1.5}
+
+    .field{display:flex; flex-direction:column; gap:8px; margin-bottom:14px}
+    .label{font-size:13px; font-weight:600; color:#dbe4ee}
+    .input, .select{
+      width:446px; font: inherit; color:var(--text);
+      padding: 14px 18px; border-radius: 14px; border:1px solid var(--border);
+      background: rgba(8,12,24,.6); outline:none; transition:.2s ease;
+      box-sizing: border-box; height: 50px; font-size: 14px; line-height: 20px;
+    }
+    .input::placeholder{color:#94a3b8}
+    .input:focus, .select:focus{ border-color: var(--primary); box-shadow: 0 0 0 6px var(--ring) }
+    .select{
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a9b1bd' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 18px center;
+      background-size: 12px;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+    .select:focus {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%233b82f6' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    }
+    .help{color:var(--muted); font-size:12px}
+    .error{color:var(--danger); font-size:12px; display:none; margin-top:4px}
+
+    .actions{display:flex; flex-direction:column; gap:12px; margin-top:18px}
+    .actions-row{display:flex; align-items:center; gap:12px}
+    .btn{
+      appearance:none; border:none; cursor:pointer; user-select:none; text-decoration:none; color:white; font-weight:700; letter-spacing:.2px;
+      padding:14px 18px; border-radius:14px; width:446px; text-align:center;
+      background: linear-gradient(180deg, var(--primary) 0%, var(--primary-600) 60%, var(--primary-700) 100%);
+      box-shadow: 0 12px 24px rgba(37,99,235,.35), inset 0 2px 0 rgba(255,255,255,.15);
+      transition: transform .06s ease, filter .2s ease, box-shadow .2s ease;
+      box-sizing: border-box; height: 50px; font-size: 14px; line-height: 20px;
+    }
+    .btn:hover{ filter: brightness(1.08) }
+    .btn:active{ transform: translateY(1px) }
+    .btn[disabled]{opacity:.65; cursor:not-allowed; filter:saturate(.6)}
+
+    /* mini rodapé */
+    .foot{display:flex; gap:14px; align-items:center; color:var(--muted); font-size:12px; margin-top:14px}
+    .dot{width:6px; height:6px; border-radius:999px; background:var(--success); box-shadow:0 0 0 6px rgba(16,185,129,.15)}
+
+    /* toast */
+    .toast{position:fixed; right:18px; bottom:18px; background:rgba(21,27,49,.95); border:1px solid var(--border); color:var(--text); padding:14px 16px; border-radius:12px; box-shadow:var(--shadow-md); transform:translateY(16px); opacity:0; transition:.25s ease; z-index:1000; backdrop-filter:blur(10px)}
+    .toast.show{transform:none; opacity:1}
+  </style>
+</head>
+<body>
+  <div class="backdrop"></div>
+  <div class="grain"></div>
+
+  <div class="container">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Página inicial Quiz Tech">
+        <div class="brand-logo" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" opacity=".95"/></svg>
+        </div>
+        <strong class="brand-title">Quiz Tech</strong>
+      </a>
+      <span class="theme-chip">v2 • interface moderna</span>
+    </header>
+
+    <section class="hero" aria-label="Introdução e formulário de início de prova">
+      <div class="hero-left">
+        <div class="badge" aria-hidden="true">Certificações técnicas</div>
+        <h1 class="hero-title">Teste seus conhecimentos com elegância e foco.</h1>
+        <p class="hero-sub">Preencha seus dados para iniciar a prova. O sistema foi otimizado para leitura, contraste, acessibilidade e responsividade.</p>
+        <div class="badges" aria-hidden="true">
+          <span class="badge">Tema escuro nativo</span>
+          <span class="badge">Campos acessíveis</span>
+          <span class="badge">Validação amigável</span>
+          <span class="badge">Layout responsivo</span>
+        </div>
+      </div>
+
+      <div class="card" role="region" aria-label="Formulário de início">
+        <h2>Inicie sua Prova</h2>
+        <p>Seus dados não serão compartilhados. Usamos apenas para identificar a tentativa.</p>
+
+        <form id="user-form" role="form" aria-label="Formulário de cadastro para iniciar o quiz" novalidate>
+          <div class="field">
+            <label class="label" for="user-name">Nome completo</label>
+            <input class="input" id="user-name" name="name" type="text" placeholder="Digite seu nome completo" autocomplete="name" required minlength="3" aria-required="true" aria-label="Digite seu nome completo" />
+            <div class="help">Ex.: Maria da Silva</div>
+            <div class="error" id="err-name">Informe seu nome completo.</div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="user-email">E‑mail</label>
+            <input class="input" id="user-email" name="email" type="email" placeholder="voce@email.com" inputmode="email" autocomplete="email" required aria-required="true" aria-label="Digite seu e-mail" />
+            <div class="help">Você receberá o comprovante neste e‑mail.</div>
+            <div class="error" id="err-email">E‑mail inválido.</div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="quiz-type">Tipo de prova</label>
+            <select class="select" id="quiz-type" name="quizType" required aria-required="true" aria-label="Selecione o tipo de prova">
+              <option value="" selected disabled>Selecione uma opção</option>
+              <option value="aws">Quiz AWS - AWS Cloud Practitioner</option>
+              <option value="cobit">Quiz COBIT - Governança e Gerenciamento de TI</option>
+              <option value="itil4">Quiz ITIL 4 - ITIL 4 Foundations</option>
+              <option value="az900">Quiz AZ-900 - Microsoft Azure Fundamentals</option>
+            </select>
+            <div class="error" id="err-exam">Selecione o tipo de prova.</div>
+          </div>
+
+          <div class="actions">
+            <div class="actions-row">
+              <button type="submit" class="btn" id="start-quiz-button">Iniciar Prova</button>
+            </div>
+            <small class="help">Tempo e regras aparecem na próxima tela.</small>
+          </div>
+        </form>
+
+        <div class="foot" aria-live="polite">
+          <span class="dot" aria-hidden="true"></span>
+          <span>Servidor operacional</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Validando dados…</div>
+
+  <script src="js/user-form.js"></script>
+  <script src="js/pwa-install.js"></script>
+  <script>
+    // Integração com o script existente e melhorias de UX
+    (function() {
+      const form = document.getElementById('user-form');
+      const startBtn = document.getElementById('start-quiz-button');
+      const toastEl = document.getElementById('toast');
+
+      const toast = (msg, ms = 1600) => {
+        if (!toastEl) return;
+        toastEl.textContent = msg;
+        toastEl.classList.add('show');
+        clearTimeout(toastEl._to);
+        toastEl._to = setTimeout(() => toastEl.classList.remove('show'), ms);
+      };
+
+      const showError = (id, show = true) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.style.display = show ? 'block' : 'none';
+      };
+
+      const isNameValid = (v) => v.trim().length >= 3;
+
+      // Validação em tempo real
+      ['user-name', 'user-email', 'quiz-type'].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener('input', () => {
+          if (id === 'user-name' && isNameValid(el.value)) showError('err-name', false);
+          if (id === 'user-email' && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(el.value)) showError('err-email', false);
+          if (id === 'quiz-type' && el.value) showError('err-exam', false);
+        });
+      });
+
+      // Interceptar submit do formulário para validação visual
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          const name = document.getElementById('user-name').value.trim();
+          const email = document.getElementById('user-email').value.trim();
+          const exam = document.getElementById('quiz-type').value;
+
+          let valid = true;
+
+          if (!isNameValid(name)) {
+            showError('err-name', true);
+            valid = false;
+          } else {
+            showError('err-name', false);
+          }
+
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+            showError('err-email', true);
+            valid = false;
+          } else {
+            showError('err-email', false);
+          }
+
+          if (!exam) {
+            showError('err-exam', true);
+            valid = false;
+          } else {
+            showError('err-exam', false);
+          }
+
+          if (!valid) {
+            e.preventDefault();
+            toast('Corrija os campos destacados');
+            return false;
+          }
+
+          if (startBtn) {
+            startBtn.disabled = true;
+          }
+          toast('Gerando prova…');
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

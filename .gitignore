@@ -1,0 +1,76 @@
+# Arquivos do sistema operacional
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Arquivos do editor/IDE
+.vscode/
+!.vscode/launch.json.example
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# GitHub Actions (opcional - pode ser mantido se necessário)
+# .github/workflows/
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.log
+*.cache
+
+# Dependências do Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Arquivos de build e distribuição
+dist/
+build/
+*.min.js
+*.min.css
+
+# Arquivos de ambiente
+.env
+.env.local
+.env.*.local
+
+# Arquivos de teste e cobertura
+coverage/
+.nyc_output/
+*.lcov
+
+# Arquivos do Cypress
+cypress/videos/
+cypress/screenshots/
+
+# Arquivos do Git
+*.orig
+*.rej
+
+# Arquivos de backup
+*.bak
+*.backup
+*~
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos pessoais (OneDrive sync)
+~$*
+
