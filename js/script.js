@@ -284,18 +284,24 @@ const QuizApp = {
         if (this.correctCounter) this.correctCounter.textContent = '0';
         if (this.incorrectCounter) this.incorrectCounter.textContent = '0';
         
+        // Reset progress tracker
+        if (typeof ProgressTracker !== 'undefined') {
+            ProgressTracker.reset();
+        }
+        
         const shuffledQuestions = this.shuffleArray(questions);
         
         const output = shuffledQuestions.map((currentQuestion, questionNumber) => {
             const inputType = Array.isArray(currentQuestion.correctAnswer) ? "checkbox" : "radio";
             const shuffledOptions = this.shuffleArray(Object.keys(currentQuestion.options));
             
+            const questionId = `question-${questionNumber}`;
             const answers = shuffledOptions.map((letter, idx) => `
-                <label class="answer" for="question-${questionNumber}-option-${letter}">
+                <label class="answer" for="${questionId}-option-${letter}">
                     <input 
                         type="${inputType}" 
                         name="question${questionNumber}" 
-                        id="question-${questionNumber}-option-${letter}"
+                        id="${questionId}-option-${letter}"
                         value="${letter}"
                         aria-label="${this.escapeHtml(currentQuestion.options[letter])}">
                     ${this.escapeHtml(currentQuestion.options[letter])}
@@ -307,7 +313,7 @@ const QuizApp = {
                 : '';
             
             return `
-                <div class="question" role="article" aria-labelledby="question-${questionNumber}">
+                <div class="question" role="article" aria-labelledby="question-${questionNumber}" data-question-id="${questionId}" data-topic="${currentQuestion.topic || ''}" data-difficulty="${currentQuestion.difficulty || ''}">
                     <h3 id="question-${questionNumber}">${questionNumber + 1}. ${this.escapeHtml(currentQuestion.question)}</h3>
                     <fieldset role="group" aria-labelledby="question-${questionNumber}">
                         <legend class="sr-only">Opções de resposta para questão ${questionNumber + 1}</legend>
@@ -323,6 +329,30 @@ const QuizApp = {
         }
         
         this.quizStarted = true;
+        
+        // Inicializar bookmark manager e lazy loader
+        if (typeof BookmarkManager !== 'undefined') {
+            shuffledQuestions.forEach((q, idx) => {
+                const questionElement = document.querySelector(`[data-question-id="question-${idx}"]`);
+                if (questionElement) {
+                    BookmarkManager.addBookmarkButton(questionElement, `question-${idx}`);
+                }
+            });
+        }
+        
+        if (typeof LazyLoader !== 'undefined') {
+            LazyLoader.observeQuestions();
+        }
+        
+        // Populate topics for filters
+        if (typeof QuestionFilters !== 'undefined') {
+            QuestionFilters.populateTopics(shuffledQuestions);
+        }
+        
+        // Update progress tracker
+        if (typeof ProgressTracker !== 'undefined') {
+            ProgressTracker.updateProgress(0, shuffledQuestions.length);
+        }
         
         // Adicionar event listeners às questões
         this.attachQuestionListeners(shuffledQuestions);
@@ -394,6 +424,15 @@ const QuizApp = {
                                     explanationElement.style.display = 'block';
                                     explanationElement.setAttribute('aria-live', 'polite');
                                 }
+                                // Play sound
+                                if (typeof SoundManager !== 'undefined') {
+                                    SoundManager.play('correct');
+                                }
+                                // Update progress
+                                if (typeof ProgressTracker !== 'undefined') {
+                                    const totalAnswered = this.correctCount + this.incorrectCount;
+                                    ProgressTracker.updateProgress(totalAnswered, this.currentQuestions.length);
+                                }
                                 this.announceToScreenReader(`Questão ${questionNumber + 1} respondida corretamente`);
                             } else {
                                 this.incorrectCount++;
@@ -410,6 +449,15 @@ const QuizApp = {
                                 if (explanationElement) {
                                     explanationElement.style.display = 'block';
                                     explanationElement.setAttribute('aria-live', 'polite');
+                                }
+                                // Play sound
+                                if (typeof SoundManager !== 'undefined') {
+                                    SoundManager.play('incorrect');
+                                }
+                                // Update progress
+                                if (typeof ProgressTracker !== 'undefined') {
+                                    const totalAnswered = this.correctCount + this.incorrectCount;
+                                    ProgressTracker.updateProgress(totalAnswered, this.currentQuestions.length);
                                 }
                                 
                                 // Mostrar resposta correta
@@ -440,6 +488,15 @@ const QuizApp = {
                                 explanationElement.style.display = 'block';
                                 explanationElement.setAttribute('aria-live', 'polite');
                             }
+                            // Play sound
+                            if (typeof SoundManager !== 'undefined') {
+                                SoundManager.play('correct');
+                            }
+                            // Update progress
+                            if (typeof ProgressTracker !== 'undefined') {
+                                const totalAnswered = this.correctCount + this.incorrectCount;
+                                ProgressTracker.updateProgress(totalAnswered, this.currentQuestions.length);
+                            }
                             this.announceToScreenReader(`Questão ${questionNumber + 1} respondida corretamente`);
                         } else {
                             selectedLabel.classList.add('incorrect');
@@ -451,6 +508,15 @@ const QuizApp = {
                             if (explanationElement) {
                                 explanationElement.style.display = 'block';
                                 explanationElement.setAttribute('aria-live', 'polite');
+                            }
+                            // Play sound
+                            if (typeof SoundManager !== 'undefined') {
+                                SoundManager.play('incorrect');
+                            }
+                            // Update progress
+                            if (typeof ProgressTracker !== 'undefined') {
+                                const totalAnswered = this.correctCount + this.incorrectCount;
+                                ProgressTracker.updateProgress(totalAnswered, this.currentQuestions.length);
                             }
                             
                             // Mostrar resposta correta
@@ -730,8 +796,14 @@ const QuizApp = {
         return questionsData;
     },
     
-    // Mostrar ações após resultado
+    // Mostrar ações após resultado (incluindo compartilhamento)
     showResultActions() {
+        // Share manager já está integrado via script
+        if (typeof ShareManager !== 'undefined') {
+            ShareManager.createShareButtons();
+        }
+        
+        // Mostrar botões de ação
         const actionButtons = `
             <div id="result-actions" style="margin-top: 20px;">
                 <button id="view-history-button" class="quiz-option secondary">
